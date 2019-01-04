@@ -1,0 +1,15 @@
+{% extends "questions/question_base.html" %}
+
+{% block pre_question_content %}
+<div class="col-md-4">
+	<h1>@{{ question_user.username }}</h1>
+	<p>Question History</p>
+</div>
+
+<div class="col-md-8">
+	{% for question in queston_list %}
+	<p> question = {{question.question}}</p>
+		{% include "questions/_question.html" %}
+	{% endfor %}
+</div>
+{% endblock %}

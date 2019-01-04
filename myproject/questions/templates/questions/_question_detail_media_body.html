@@ -1,0 +1,97 @@
+
+<div class="media-body">
+	<div class="d-flex flex-row ">
+		{% if question.question_picture %} 
+			{% include "questions/_modal_image_detail.html" %} 
+		{% endif %}
+
+	</div>
+
+	<div id="create-answer-url" create-answer-url="{% url 'questions:ajax_create_answer' %}" 
+		style="display: none;"> </div>
+	<div id="delete-answer-url" delete-answer-url="{% url 'questions:ajax_delete_answer' %}" 
+		style="display: none;"> </div>
+	<div id="update-answer-url" update-answer-url="{% url 'questions:ajax_update_answer' %}" 
+		style="display: none;"> </div>
+
+	{% if question.answers.count > 0 %} 
+	
+		{% if question.editing_done is False%}
+			<div class="media=heading alert alert-warning">
+				{% for answer in question.answers.all %}
+				<div class="answer_loop{{forloop.counter}}">
+					<div class="mt-1 px-sm-2  answer_item">
+						<div class="d-flex flex-row ">
+		
+							<span id="answer_{{forloop.counter}}">
+												<h5>{{ answer|safe }}</h5>
+											</span>
+							<button id="edit_answer_button_{{forloop.counter}}" class="ml-2 " 
+								onclick="AnswerToggle(forloopNumber={{forloop.counter}},answer_pk={{answer.pk}} )" 
+										style="border: none; background:none;font-size:0.8em;color:CadetBlue;">
+												 <i class="fa fa-edit"></i>
+							</button>
+							<button id="delete_answer_button_{{forloop.counter}}" 
+								onclick="DeleteAnswer(loopNumber={{forloop.counter}},answer_pk={{answer.pk}})" 
+										style="border: none; background:none;font-size:0.8em;color:CadetBlue;">
+											 <i class="fa fa-eraser"></i>
+							</button>
+						</div>
+
+					  </div>
+					</div>
+				{% endfor %}
+					<form method="POST" autocomplete="off" 
+							action="{% url 'questions:update_question_params' pk=question.pk %}" 
+									id="QuestionAnswerForm" enctype="multipart/form-data" novalidate>
+						{% csrf_token %}
+						<div class="d-flex flex-row my-4">
+							<div id="NewAnswer">
+								<div id="answer_field">
+									{{form.answer }}
+								</div>
+							</div>
+							<div class="ml-4" id='form-bottons'>
+								<button type="submit" class="btn btn-primary btn-large" data-toggle="tooltip" 
+										data-placement="auto" title="add answer to this question">
+				                   				  
+				                   				  <i class="fa fa-plus ml-1"></i>
+				                </button>
+							</div>
+							
+						</div>
+						<div class="d-flex flex-row mt-4">
+						</div>
+					</form>
+
+				<div id="new_answer_item"> 
+				</div>
+			</div>
+		{% endif %} 
+	{% else %}
+		<div class="media=heading alert alert-warning">
+		<p> No answers for this question</p>
+			<form method="POST" autocomplete="off" 
+				action="{% url 'questions:update_question_params' pk=question.pk %}" 
+					id="QuestionAnswerForm" enctype="multipart/form-data" novalidate>
+					{% csrf_token %}
+					<div class="my-4">
+						<div id="NewAnswer">
+							<div id="answer_field">
+								{{form.answer }}
+							</div>
+						</div>
+					</div>
+					<div class="d-flex flex-row mt-4">
+						<div id='form-bottons'>
+							<button type="submit" class="btn btn-primary btn-large" data-toggle="tooltip" 
+										data-placement="auto" title="add answer">
+				                   				  Add answer
+				                   <i class="fa fa-check-circle ml-1"></i>
+				         </button>
+					</div>
+				</div>
+			</form>
+		</div>
+	{% endif %}
+</div>

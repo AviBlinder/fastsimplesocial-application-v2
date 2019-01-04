@@ -1,0 +1,40 @@
+{% extends 'base_accounts.html' %}
+
+{% load socialaccount %}
+
+{% block title %}Sign up to FastSimpleSocial{% endblock %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-6  col-md-6 col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <a class="btn btn-success mt-2" href="{% provider_login_url "github" %}">Sign up thru Github</a>
+          <a class="btn btn-success mt-2" href="{% provider_login_url "google" %}">Sign up thru Google</a>
+          
+          <h3 class="card-title mt-3">Sign up</h3>
+
+            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+              {% csrf_token %}
+                    {% include 'includes/form.html' %}
+              {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+                <button type="submit" class="btn btn-success btn-block">Create an account</button>
+            </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+          Already have an account? <a href="{% url 'accounts:login' %}">Log in</a>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

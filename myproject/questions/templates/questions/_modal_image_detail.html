@@ -1,0 +1,59 @@
+{% load switch %}
+<!-- Button trigger modal -->
+              {% switch question.extension %}
+						  {% case 'mp4' %}
+                <a data-toggle="modal" href="#{{question.pk}}">
+                  <video width="350" height="200" autoplay controls>
+  								  <source src="{{ question.question_picture.url }}" type="video/mp4">
+									Your browser does not support the video tag.
+                  </video>
+                </a>
+              {% case 'm4a' %}
+                <a data-toggle="modal" href="#{{question.pk}}">
+                  <audio controls>
+  								  <source src="{{ question.question_picture.url }}" type="video/mp4">
+									Your browser does not support the audio tag.
+                  </audio>
+                </a>
+                  
+  						  {% else %}
+
+                <a data-toggle="modal" href="#{{question.pk}}"> 
+                    <img class="mr-4 mb-1  img-responsive " style="width:150px; height:150px" 
+          		      src="{{ question.question_picture.url }}" alt="Question image" > 
+          		  </a>					
+              {% endswitch %}
+
+<!-- Modal -->
+<div class="modal fade" id="{{question.pk}}" tabindex="-1" role="dialog" aria-labelledby="{{question.pk}}Label" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center" style=" margin: 0 auto;">
+          <h3 class="modal-title d-flex justify-content-center" id="{{question.pk}}Label">{{ question.question }}</h3>
+      </div>
+      <div class="modal-body text-center">
+        			    {% switch question.extension %}
+						      {% case 'mp4' %}
+          						  <video height="400"  autoplay controls>
+					      			    <source src="{{ question.question_picture.url }}" type="video/mp4">
+								        	Your browser does not support the video tag.
+							          </video>
+                  {% case 'm4a' %}							          
+          						  <audio controls>
+					      			    <source src="{{ question.question_picture.url }}" type="video/mp4">
+								        	Your browser does not support the audio tag.
+							          </audio>
+
+						        {% else %}
+    				        	<img class="mr-4 mb-1 img-fluid" style="width: 400px ; height:auto" 
+                        src="{{ question.question_picture.url }}" alt="Question image"> 
+                    {% endswitch %}
+      </div>
+      <div class="row"> 
+        <div class="modal-footer ml-4"  >
+         <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

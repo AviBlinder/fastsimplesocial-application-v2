@@ -1,0 +1,47 @@
+{% extends "questions/question_base.html" %}
+
+{%load static %} 
+
+{% load tz %}
+
+
+    {% block stylesheet %}
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css" />
+        
+        <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css'%}">        
+    {% endblock stylesheet%}  
+
+
+{% block body %}
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<a data-toggle="modal" href="#exampleModal"><img src="https://s3-eu-west-1.amazonaws.com/simplesocialproject/media/board_pictures/board3.jpeg"></a>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-cente" style=" margin: 0 auto;">
+          <h5 class="modal-title d-flex justify-content-center" id="exampleModalLabel">Modal title New</h5>
+      </div>
+      <div class="modal-body text-center">
+					<img class="mr-4 mb-1  img-responsive " style="width: 400px ; height:auto" 
+						src="https://s3-eu-west-1.amazonaws.com/simplesocialproject/media/board_pictures/board3.jpeg"> 
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base_accounts.html' %}
+
+          {% comment %}
+
+{ block stylesheet }
+
+.button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+{ endblock }
+          {% endcomment %}
+
+{% block title %}Sign up to FastSimpleSocial{% endblock %}
+
+{% block content %}
+
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      <div class="card" style="width:400px">
+        <div class="card-body">
+          <h3 class="card-title"> You are almost there...</h3>
+          <br>
+        <h5>We just sent you a confirmation email.</h5>
+        <h5>Please confirm your email address to complete the registration.</h5>
+          
+        </div>
+        <div class="card-footer text-muted text-center bg bg-white">
+            <a class="btn btn-success" href="{% url 'accounts:login' %}" class="btn btn-outline-secondary">Already confirmed my email</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}

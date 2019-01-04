@@ -1,0 +1,10 @@
+{% extends "questions/question_base.html" %}
+
+
+{% block question_content %}
+  <form method="post"  class="mb-4" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">My Question is Ready</button>
+  </form>
+{% endblock %}

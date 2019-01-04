@@ -1,0 +1,14 @@
+{% extends "questions/question_base.html" %}
+
+{% load crispy_forms_tags %}
+
+
+{% block question_content %}
+  <form method="post" enctype="multipart/form-data" class="mb-4" novalidate>
+    {% csrf_token %}
+    
+                    {{ form.answer|as_crispy_field }}
+                    
+    <button type="submit" class="btn btn-success">Save change</button>
+  </form>
+{% endblock %}

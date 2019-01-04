@@ -1,0 +1,68 @@
+    <div id="show_question_results"  style="display:none">
+            <div class="d-flex justify-content-center">
+                <div class="mt-2">
+			        <button style="border: none; background:none" class="ml-4 mb-2" onclick="TogglePieChart()">
+			            <i class="fa fa-pie-chart" style="font-size:1.5em;color:RoyalBlue  ;"></i>
+					</button>
+    			    <button style="border: none; background:none" class="ml-4 mb-2" onclick="ToggleResultsTable()">
+	    		        <i class="fa fa-list-alt" style="font-size:1.5em;color:RoyalBlue  ;"></i>
+					</button>
+                </div>							
+            </div>
+
+            <div id="container">
+
+            {% if question.votesSum > 0 %}
+                <div class="mt-4">
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script> Highcharts.chart('container', {{ chart|safe }}); </script>
+                </div>
+            {% else %}
+
+            <div class="bg bg-info my-4 pl-4">
+                        <br>
+                        <p class="text-center pt-2">No answers for this question</p>
+                        <br>
+                    </div>
+            {% endif%}
+            </div>
+
+
+        <div class="table-responsive mt-4" id="ResultsTable">
+             <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">answer</th>
+                      <th scope="col">votes</th>
+                    </tr>
+                  </thead>
+
+        {% for item in resulst_list%}
+                  <tbody>
+                    <tr>
+                      <th scope="row"> {{ forloop.counter }}</th>
+
+             {% for key ,value in item.items %}
+  
+                      <td> {{ key }}</td>
+                      <td> {{ value }}</td>
+                    </tr>
+                  </tbody>
+  
+                {% endfor %}
+            {% endfor %}
+        </table>
+       </div>
+    </div>
+    <div id="dont_show_question_results" style="display:none">
+        <div class=" mt-4">
+            <div class="container">
+                <div class="jumbotron bg-success">
+                    <p > Results will be published after 
+                    <span id="question_due_date">{{question.due_date|date:"Y-m-d H:i"}} </span> and after at least 
+                    {{question.min_answerers}} answer{{question.min_answerers |pluralize}}  </p>
+                </div>
+            </div>
+        </div>        
+    </div>

@@ -1,0 +1,99 @@
+{% extends "questions/question_base.html" %}
+
+{%load static %} 
+{% load crispy_forms_tags %}
+
+{% load tz %}
+
+{% block question_content %}
+
+<h1> Timezone template</h1>
+
+{% get_current_timezone as TIME_ZONE %}
+ 
+
+{% localtime on %}
+  CURRENT_TIME: {{ object.date }} <<<
+{% endlocaltime %}
+
+<p> Django tz: {{ TIME_ZONE }}</p>
+
+<div id="tagscloud"> Before text... <span id="WebPartCaptionWPQ2"></span> </div>
+
+
+<div id="current_date"> 
+    Current date:
+    <span id="span_current_date"></span> 
+    time:
+    <span id="span_current_time"></span>
+     --
+    <span id="span_current_tz"></span>
+     
+</div>
+
+<p> after j</p>
+
+{% comment %}
+  <form method="post" id="personForm" data-cities-url="{% url 'questions:remove_session_data' %}" novalidate>
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button id="remove_session_data" type="submit" class="btn btn-success">Remove Session Data</button>
+  </form>
+{% endcomment %}
+
+
+{% endblock %}
+
+
+
+{% block javascript  %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <script src="http://momentjs.com/downloads/moment-timezone.js"></script>
+    
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js">
+</script>
+    
+
+<script>
+
+    var tz = jstz.determine();
+     var timezone = tz.name();
+     $("#tagscloud #WebPartCaptionWPQ2").text(timezone);
+
+     var current_date = moment().format('YYYY-MM-DD')      ;
+     $("#current_date #span_current_date").text(current_date);
+     
+
+     var current_time = moment().format('HH:mm')      ;
+     $("#current_date #span_current_time").text(current_time);
+
+    var  current_tz = moment().format('ZZ');
+     $("#current_date #span_current_tz").text(current_tz);
+
+     var due_date = $('#question_due_date').html();
+    
+    $('#question_due_date').val(moment(due_date).format("LL"));
+
+    $('#id_due_day').val(due_date);
+
+</script>
+
+<script>
+    
+
+$(document).ready(function(){
+    $("#remove_session_data").click(function(){
+
+      var url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+
+      $.ajax({                       
+        url: url
+      });
+
+    });
+});    
+</script>
+{% endblock %}

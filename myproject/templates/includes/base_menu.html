@@ -1,0 +1,82 @@
+{% load static %}
+
+{% load socialaccount %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+
+    <button class="navbar-toggler collapsed" data-toggle="collapse" data-target="#first_collapse_target" 
+    aria-controls="first_collapse_target" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="first_collapse_target">
+
+
+    <ol class="navbar" >
+
+    				{% if user.is_authenticated %}  
+                <a class="navbar  text-white text-right py-md-2" href="{% url 'home' %}">FastSimpleSocial</a>
+
+    				    <a class="navbar text-white" href="{% url 'questions:logged_user_questions' username=request.user %}">My Questions</a>
+    				    <a class="navbar text-white" href="{% url 'questions:dynamic_create' %}">New Question</a>
+    
+          {% comment %}
+    				    <a class="navbar text-white" href="{% url 'groups:all' %}">My Groups</a>
+    				    <a class="navbar text-white" href="{% url 'groups:create' %}">New Group</a>
+          {% endcomment %}
+
+    				{% else %}
+
+    				    <a class="navbar text-white font-weight-bold" href="{% url 'home' %}">FastSimpleSocial</a>
+
+    				{% endif %}
+
+    </ol>
+    
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<ul></ul> 
+
+        <div id="navbarSupportedContent">
+            <form class="mb-2 d-flex flex-row" method="GET" action="{% url 'questions:search_question'  %}" role="search">
+                <input autocomplete=off class="form-control" type="search" name='search_question' 
+                placeholder="Search Question" aria-label="Search">
+              <button class="btn  btn-rounded btn-sm  ml-sm-2" 
+                    type="submit"><i class="material-icons md-18 md-dark">search</i></button>
+            </form>
+        </div>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+     {% if user.is_authenticated %}
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  href="#"  id="userMenu"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="text-white"> {{ user.email }} </span>
+            </a>
+            <div class="dropdown-menu " aria-labelledby="userMenu">
+              <a class="dropdown-item" href="{% url 'accounts:my_account' %}">My account</a>
+              <!--<a class="dropdown-item" href="{% url 'accounts:password_change' %}">Change password</a>-->
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a>
+
+
+            </div>
+          </li>
+        </ul>
+      {% else %}
+        <ul class="navbar navbar-right">
+          <form class="form-inline  ">
+            <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary">Log in</a>
+          </form>
+        </ul>
+      {% endif %}
+      
+    </div>
+      
+</nav>

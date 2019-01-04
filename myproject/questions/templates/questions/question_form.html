@@ -1,0 +1,51 @@
+{% extends "questions/question_base.html" %}
+
+{% load crispy_forms_tags %}
+
+
+{% block question_content %}
+<h4>Create New Question w/image</h4>
+<form method="POST" action="{% url 'questions:create' %}" id="postForm" enctype="multipart/form-data" novalidate>
+	{% csrf_token %}
+   <div class="row">
+      <div class="col-6">
+        <div class = "mt-4">          
+        {{ form.question|as_crispy_field }}
+        </div>
+		{{ form.answer|as_crispy_field }}
+
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-4">
+		{{ form.question_picture|as_crispy_field }}
+
+      </div>
+    </div>
+	<input type="submit" value="Create" class="btn btn-primary btn-large">
+</form>
+{% endblock %}
+
+{% block comment %}
+  <div class = "row">
+      <div class="col-6">
+        <div class = "mt-4">          
+        {{ form.due_date|as_crispy_field }}
+        </div>
+	    	{{ form.duration|as_crispy_field }}
+        </div>
+  </div>
+
+
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2190",
+      // You can put more options here.
+
+    });
+  });
+  </script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% load humanize %}
+
+    {% block stylesheet %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
+        <link rel="stylesheet" href="{% static 'css/card.css' %}">
+
+    {% endblock stylesheet%}  
+
+
+{% block content %}
+
+  <div class="m-4 ">
+     <a class="btn btn-primary text-white" href="{% url 'boards:new_board'  %}" role="button">New Board</a>
+  </div>
+
+
+ {% comment %}
+      ## Make a large button: btn-block
+      
+      style="background-image:  url(" {% static 'board1.jpeg' %} ")
+      <div class="card card-image" 
+        style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+
+ {% endcomment%}
+
+
+<div class="container">
+  <div class="row {{ background_pic }}">
+  {% for board in boards %}
+    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+       <div class="card  card-with-shadow my-2">
+          <div class="card-header text-center text-white bg-primary"> 
+               <h4><a class ="text-white" href="{% url 'boards:board_topics' board.pk %}">{{ board.name }}</a></h4>
+          </div>
+          <div class="card-body border-info text-white">
+              <h4 class="card-text text-info"> {{board.description}}</h4>
+                <div class="alert alert-info" role="alert">
+                  <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 
+                  <br>
+                    {{ board.topics.count | apnumber }} topic{{ board.topics.count | pluralize }} <br> 
+                    {{ board.get_posts_count | apnumber }} post{{ board.get_posts_count | pluralize }} 
+              </div>
+              <a href="{% url 'boards:delete_board' board.pk %}">
+                  <span class="glyphicon glyphicon-remove"></span></a>
+                    <a  href="{% url 'boards:board_update' board.pk %}">
+                       <span class="glyphicon glyphicon-pencil	"></span></a>
+        </div>
+    
+        <div class="card-footer">
+                      {% with post=board.get_last_post %}
+            {% if post %}
+          <small>
+            <a href="{% url 'boards:topic_posts' board.pk post.topic.pk %}">
+              Last Post: By  {{ post.created_by.username }} 
+            </a>
+          </small>
+          <br>
+          <small>
+            <a href="{% url 'boards:topic_posts' board.pk post.topic.pk %}">
+             at {{ post.created_at | date:"d M Y"  }}
+            </a>
+          </small>
+            {% else %}
+              <small class="text-muted">
+                 <em>No posts yet.</em>
+              </small>
+            {% endif %}
+          {% endwith %}
+      </div>
+   </div>
+  </div>
+{% endfor %}
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+.c9
+
+# Django stuff:
+*.log
+local_settings.py
+*.sqlite3
+
+# Python and virtualenv 
+__pycache__/
+*.py[cod]
+.env
+venv/

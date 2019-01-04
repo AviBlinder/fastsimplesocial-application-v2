@@ -1,0 +1,55 @@
+<div class="media-footer">
+
+	<div class="media-heading alert alert-info" role="alert">
+
+		<p class="my-2 mx-2">
+			Publish Results On: {{question.due_date |default_if_none:"Not set"}} {% if question.editing_done is False %}
+
+			<button onclick="ShowDateTime()" style="border: none; background:none;font-size:1em;color:CadetBlue;">
+							<i class="fa fa-wrench"></i>
+						</button> {% endif %}
+
+			<br> Min. answerers: {{ question.min_answerers|default_if_none:0}} {% if question.editing_done is False %}
+
+			<button onclick="ShowMinAnswerers()" style="border: none; background:none;font-size:1em;color:CadetBlue;">
+							<i class="fa fa-wrench"></i>
+						</button> {% endif %}
+		</p>
+	</div>
+
+	{% if question.editing_done is False %}
+
+	<form method="POST" autocomplete="off" action="{% url 'questions:update_question_params' pk=question.pk %}" 
+					id="QuestionParamsForm" enctype="multipart/form-data" novalidate>
+		{% csrf_token %}
+		<div class="d-flex flex-row mt-4">
+			<div id='form-bottons'>
+				<button type="submit" class="btn btn-primary btn-large" data-toggle="tooltip" 
+						data-placement="auto" title="Update question details">
+                   				  Update Question 
+                   				  <i class="fa fa-check-circle ml-1"></i>
+                			</button>
+			</div>
+			<a class="btn btn-success text-white ml-2" data-toggle="tooltip" data-placement="auto" title="Press to start voting" href="{% url 'questions:question_editing_done' pk=question.pk %}" role="button"> 
+							  Question Ready  </a>
+			<div class="mt-2 ml-2">
+				{{ form.question_picture }}
+			</div>
+		</div>
+		
+		<div class="my-4">
+			<div id="UpdateDateTime" style="display: none;" date-time-url="{% url 'questions:get_question_date_time' %}">
+				<div id="due_date_field">
+					Due Date {{form.due_day }}
+				</div>
+				<div id="due_time_field">
+					Due Time {{form.due_time }}
+				</div>
+			</div>
+		</div>
+		<div class="mt-2" id="UpdateMinAnswerers" min-answerers-url="{% url 'questions:ajax_get_question_min_answerers' %}" style="display: none;">
+			Min. Answerers {{form.min_answerers}}
+		</div>
+	</form>
+	{% endif %}
+</div>

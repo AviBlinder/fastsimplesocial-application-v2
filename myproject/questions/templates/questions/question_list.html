@@ -1,0 +1,238 @@
+{% extends "questions/question_base.html" %} 
+
+{% load humanize %} 
+
+{% load switch %}
+
+{% load static %} 
+
+{% block stylesheet %}
+
+<style>
+.card:hover{
+	-webkit-box-shadow: 1px 9px 40px -12px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 9px 40px -12px rgba(0,0,0,0.75);
+	box-shadow: 1px 9px 40px -12px rgba(0,0,0,alpha);
+}
+
+
+</style> 
+
+{% endblock stylesheet%}  
+
+{% block pre_question_content %}
+
+<div class="m-4 ">
+	<a class="btn btn-primary text-white" href="{% url 'questions:dynamic_create'  %}" role="button">
+		 Add Question<i class="ml-2 fa fa-angle-double-up" style="font-size:1em;color:white;"></i> </a>
+</div>
+
+
+<div class="container">
+
+		  <div class="card-deck ">
+			{% for question in questions %}
+
+		    <div class="d-flex flex-row">
+		    	<div class="question_card">
+	    		<div class="card  my-2  border-info">
+				  <div class="card-header text-center bg-transparent">
+				
+					{% if question.question_picture %}
+					
+						{% if question.user == request.user %}
+              {% switch question.extension %}
+						  {% case 'mp4' %}
+								  <video width="320" height="200"  controls>
+										  <source src="{{ question.question_picture.url }}" type="video/mp4">
+											Your browser does not support the video tag.
+									</video>
+              {% case 'm4a' %}
+                <a data-toggle="modal" href="#{{question.pk}}">              
+                  <audio controls>
+                       <source src="{{ question.question_picture.url }}" type="audio/ogg">
+                       <source src="{{ question.question_picture.url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio>
+                </a>
+									
+						 	 {% else %}
+										<a href="{% url 'questions:single' username=question.user.email pk=question.pk %}">
+											<img class="card-img-top " style="width:260px; height:200px;"
+												src="{{ question.question_picture.url }}" alt="Question image" >
+										</a>			
+								{% endswitch %}
+					{% else %}
+              {% switch question.extension %}
+						  {% case 'mp4' %}
+								  <video width="320" height="200"  controls>
+										  <source src="{{ question.question_picture.url }}" type="video/mp4">
+											Your browser does not support the video tag.
+									</video>
+              {% case 'm4a' %}
+                <a data-toggle="modal" href="#{{question.pk}}">              
+                  <audio controls>
+                       <source src="{{ question.question_picture.url }}" type="audio/ogg">
+                       <source src="{{ question.question_picture.url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio>
+                </a>
+						 	 {% else %}
+										<img class="card-img-top " style="width:260px; height:200px;"
+											src="{{ question.question_picture.url }}" alt="Question image" >
+								{% endswitch %}
+					  {% endif %}
+					{% else %}
+						{% if question.user == request.user %}
+							<a href="{% url 'questions:single' username=question.user.email pk=question.pk %}">
+								<img class="card-img-top " style="width:260px; height:200px;"
+								src="{% static 'img/conversation.jpeg' %}"  alt="Question image" >
+							</a>
+						{% else %}
+								<img class="card-img-top " style="width:260px; height:200px;"
+								src="{% static 'img/conversation.jpeg' %}"  alt="Question image" >
+					  {% endif %}
+					{% endif %}
+			{% comment %}					
+					{% if question.question_picture %}
+                {% include "questions/_modal_image.html" %}
+					{% else %}
+                {% include "questions/_modal_image.default.html" %}
+					{% endif %}
+			{% endcomment %}
+				</div>
+
+
+				<div class="card-body border-info text-white">
+				{% if question.user == request.user %}
+				<div class=" text-center  text-primary">
+					<h4>
+						<a href="{% url 'questions:single' username=question.user.email pk=question.pk %}">
+							{{ question.question | safe }}  </a>
+							
+					</h4>
+				</div>
+				{% else %}
+				<div class=" text-center text-info ">
+					<h4>
+							{{ question.question }} 
+					</h4>
+				</div>
+				{% endif %}
+
+					<div class="alert alert-info" role="alert">
+						 <p>{{ question.answers.count | apnumber }} answer{{ question.answers.count | pluralize }} &  
+						 {{ question.votesSum | apnumber }} vote{{ question.votesSum | pluralize }}</p> 
+					</div>
+
+						<div class=" d-flex justify-content-center ">
+							{% comment %}
+									{% if question.alreadyVoted == False  %}  {% endif %}
+							{% endcomment %}
+
+					{% if question.editing_done is True %}
+							{% comment %}
+										<a class="btn btn-primary text-white" 
+											href="{% url 'questions:vote' pk=question.pk %}" role="button">Vote Now</a>
+						<span class="question_href" question_href="{% url 'questions:vote' pk=question.pk %}" style="display:none"></span>
+						<button type="button" 
+						onclick="modalQuestion(question_pk={{question.pk}},question_name='{{ question.question }}' )" 
+						id="modalVoteButton" class="btn btn-primary" data-toggle="modal" data-target="#modalVoteForm">
+							 	Vote Now
+	 					</button>
+							{% endcomment %}
+				 {% endif %} 					
+<span>
+<div class="modal fade" id="modalVoteForm" tabindex="-1" role="dialog" aria-labelledby="modalVoteForm" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark modalquestionname"> </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-dark">
+        ...
+      </div>
+      <div class="modal-footer align-left">
+        <button type="button" class="btn btn-primary">Vote</button>
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</span> 					
+					</div>
+
+				</div>
+				<div class="card-footer bg-gradient-info  d-flex justify-content-around">
+					<small>
+						<span class="username">
+							Created By:  @<a href="{% url 'questions:for_user' username=question.user.email  %}" > {{ question.user.email }} </a>
+								at {{ question.created_at | date:"d M Y"  }}
+								{{question.extension}}
+						</span>
+			          </small>
+				</div>
+			</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+
+
+{% endblock %}
+
+
+{% block javascript  %}
+	<script src="http://momentjs.com/downloads/moment.js"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
+    </script>
+    
+
+    {% comment %}
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% endcomment %}
+    
+        <script src="{% static 'js/scripts/script_hover_card.js' %}"></script>
+<script>
+
+
+function modalQuestion(question_pk,question_name){
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = question_name
+
+
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+	$('.modalquestionname').text(question_name)
+
+            $.ajax({
+                url: $("#question_href").attr("question_href"),
+                data: {
+                  'answer_pk': question_pk,
+                },
+                
+                
+                dataType: 'json',
+                success: function (data) {
+                  if (data.result == 'true') {
+                    var removed_answer = "#answer_" + loopNumber
+
+                      $(removed_answer).remove()
+                  }
+                }
+           });
+
+
+}
+
+
+</script>
+
+{% endblock %}

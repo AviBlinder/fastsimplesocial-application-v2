@@ -1,0 +1,129 @@
+{% extends "questions/question_base.html" %}
+
+{% load humanize %}
+
+{% load static %}
+
+{% block pre_question_content %}
+
+<h2 class="mt-4"> AJAX Sample</h2>
+  <form method="post" data-validate-username-url="{% url 'questions:validate_username' %}">
+    {% csrf_token %}
+    Username: <input type="text"  name="username" maxlength="150" id="id_username" autofocus="">
+    <br>
+
+    <div id="input-check">
+        
+    </div>
+    <button type="submit">Sign up</button>
+  </form>
+  
+
+<h2 class="mt-4">Hide an Element - display:none or visibility:hidden?</h2>
+
+		<div id="date1" style="width:30%;">
+			<p style="word-wrap: break-word;">display:none</p>
+			<p><button class="btn btn-info" onclick="removeElement1()">Remove1</button></p>
+		</div>
+
+
+		<div style="width:30%;" id="imgbox2">
+			<p style="word-wrap: break-word;">visibility:hidden</p>
+			<p><button class="btn btn-success" onclick="changeVisibility()">Hide</button></p>
+		</div>
+
+		<div  style="width:30%;">
+			<p>Reset</p>
+			<p><button class="w3-button w3-block w3-green" onclick="resetElement()">Reset All</button></p>
+		</div>
+
+{% endblock %}
+
+{% block javascript  %}
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <script src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
+    </script>
+<script>
+  
+    $("#id_username").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: form.attr("data-validate-username-url"),
+        data: form.serialize(),
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            alert("User is taken");
+          } else {
+            alert ("User is free for your use"); 
+              }
+        }
+      });
+
+    });
+
+
+</script>
+
+
+<script>
+
+
+function removeElement1() {
+    
+    $("#id_username").change(function () {
+        
+      console.log( $(this).val() );
+    });
+    
+    $("#date1").removeAttr("style").hide();
+}
+
+
+function changeVisibility() {
+    $("#imgbox2").attr("style", "visibility: hidden","width","30%");
+}
+
+
+function resetElement() {
+    $("#date1").show();
+    $("#imgbox2").css("visibility", "visible","width","30%");
+}
+
+</script>
+
+{% endblock %}
+
+    {% comment "js and jquery syntax" %}
+ 
+ Ajax:
+        url: '/questions/validate_user_email/',
+        data: {
+          'user_email': user_email
+        },
+
+ 
+// style.display = "none";
+// .css("display","none")
+
+//style.visibility = "hidden";
+//.css("visibility", "hidden")
+
+//style.visibility = "visible";
+
+
+//Specifies how an element should be displayed 
+//p.ex1 {display: none;}
+//p.ex2 {display: inline;}
+//p.ex3 {display: block;}
+//p.ex4 {display: inline-block;}
+
+//Specifies whether or not an element should be visible
+//    visibility: visible;
+//    visibility: hidden;
+
+
+  {% endcomment %}
