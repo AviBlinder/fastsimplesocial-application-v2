@@ -137,13 +137,15 @@
 						<span class="question_href" question_href="{% url 'questions:vote' pk=question.pk %}" style="display:none"></span>
 						<button type="button" 
 						onclick="modalQuestion(question_pk={{question.pk}},question_name='{{ question.question }}' )" 
-						id="modalVoteButton" class="btn btn-primary" data-toggle="modal" data-target="#modalVoteForm">
+						id="modalVoteButton" class="btn btn-primary" data-toggle="modal" 
+							data-target="#modalVoteForm{{forloop.counter}}">
 							 	Vote Now
 	 					</button>
 							{% endcomment %}
 				 {% endif %} 					
 <span>
-<div class="modal fade" id="modalVoteForm" tabindex="-1" role="dialog" aria-labelledby="modalVoteForm" aria-hidden="true">
+<div class="modal fade" id="modalVoteForm{{forloop.counter}}" tabindex="-1" 
+			role="dialog" aria-labelledby="modalVoteForm" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
