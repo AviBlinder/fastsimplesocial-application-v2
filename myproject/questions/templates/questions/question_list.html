@@ -58,7 +58,7 @@
 									
 						 	 {% else %}
 										<a href="{% url 'questions:single' username=question.user.email pk=question.pk %}">
-											<img class="card-img-top " style="width:260px; height:200px;"
+											<img class="card-img-top " style="width:255px; height:200px;"
 												src="{{ question.question_picture.url }}" alt="Question image" >
 										</a>			
 								{% endswitch %}
@@ -78,18 +78,18 @@
                     </audio>
                 </a>
 						 	 {% else %}
-										<img class="card-img-top " style="width:260px; height:200px;"
+										<img class="card-img-top " style="width:255px; height:200px;"
 											src="{{ question.question_picture.url }}" alt="Question image" >
 								{% endswitch %}
 					  {% endif %}
 					{% else %}
 						{% if question.user == request.user %}
 							<a href="{% url 'questions:single' username=question.user.email pk=question.pk %}">
-								<img class="card-img-top " style="width:260px; height:200px;"
+								<img class="card-img-top " style="width:255px; height:200px;"
 								src="{% static 'img/conversation.jpeg' %}"  alt="Question image" >
 							</a>
 						{% else %}
-								<img class="card-img-top " style="width:260px; height:200px;"
+								<img class="card-img-top " style="width:255px; height:200px;"
 								src="{% static 'img/conversation.jpeg' %}"  alt="Question image" >
 					  {% endif %}
 					{% endif %}
