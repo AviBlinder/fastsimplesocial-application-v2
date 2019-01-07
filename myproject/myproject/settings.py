@@ -67,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'myproject.TimezoneMiddleware.TimezoneMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',    
 ]
 
 ##  A project can have many urls.py distributed among the apps. But Django needs a url.py to use 
@@ -206,6 +207,14 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
 DEFAULT_FROM_EMAIL = 'FastSimpleSocial <noreply@fastsimplesocial.com>'
 EMAIL_SUBJECT_PREFIX = '[FastSimpleSocial] '
+
+SERVER_EMAIL = 'aviblinder@gmail.com'
+
+ADMINS = [
+    ('Admin1', SERVER_EMAIL),
+]
+ 
+MANAGERS = ADMINS
 ####################################################################################
 
 ########################## A W S ##########################################################

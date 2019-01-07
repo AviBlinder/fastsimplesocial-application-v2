@@ -714,6 +714,28 @@ class BasicUploadView(View):
             print "form is not valid"
             data = {'is_valid': False}
         return JsonResponse(data)
+
+######################################################################################################
+from .forms import FeedbackForm
+from django.core.mail import mail_admins
+
+def feedback(request):
+    if request.method == 'POST':
+        f = FeedbackForm(request.POST)
+        if f.is_valid():
+            name = f.cleaned_data['name']
+            sender = f.cleaned_data['email']
+            subject = "You have a new Feedback from {}:{}".format(name, sender)
+            message = "Subject: {}\n\nMessage: {}".format(f.cleaned_data['subject'], f.cleaned_data['message'])
+            mail_admins(subject, message)            
+            
+            f.save()
+            messages.add_message(request, messages.INFO, 'Feedback Submitted.')
+            
+            return redirect('feedback')
+    else:
+        f = FeedbackForm(initial={'email': request.user})
+    return render(request, 'questions/feedback.html', {'form': f})
         
 ######################################################################################################
 def test_menu(request):

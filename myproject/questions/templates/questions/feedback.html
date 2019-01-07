@@ -1,0 +1,65 @@
+{% extends "questions/question_base.html" %} 
+
+{%load static %} 
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+{% endblock %}
+
+
+{% block title %} Feedback - {{ block.super }} {% endblock %} 
+{% block question_content %} 
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+        {{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+<div class="container contact-form mt-2">
+
+        <form method="post" class="mb-4" novalidate>
+            <h3>Submit Your feedback</h3>
+
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                        <label class="required" for="id_name">Name:</label>
+                        <input type="text" name="name" class="form-control" id="id_name" required 
+                                    placeholder="Your Name *" value="" maxlength="200" />                        
+                </div>
+
+                <div class="form-group">
+                        <label class="required" for="id_email">Name:</label>
+                        <input type="text" name="email" class="form-control" id="id_email" required 
+                                    placeholder="Your Email *" value="" maxlength="200" />                        
+                </div>
+
+                <div class="form-group">
+                        <label class="required" for="id_subject">Subject:</label>
+                        <input type="text" name="subject" class="form-control" id="id_subject" required 
+                                    placeholder="Subject *" value="" maxlength="400" />                        
+                </div>
+                <button type="submit" class="btn btn-success">Send your feedback</button>
+
+                </div>
+    
+                <div class="col">
+                <div class="form-group mt-2">
+                        <label class="required" for="id_message"></label>
+                        <textarea  id="id_message" class="form-control" required 
+                        placeholder="Your Message *" value="Message:"
+                                style="width: 100%; height: auto;" >
+                    </textarea>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

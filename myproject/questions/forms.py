@@ -1,8 +1,11 @@
+from django.template.defaultfilters import slugify
+
+
 from django import forms
 import datetime
 #from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
 
-from models import Question,Answer,AnswerByUser
+from models import Question,Answer,AnswerByUser, Feedback
 
 from crispy_forms.helper import FormHelper
 
@@ -93,3 +96,9 @@ class PhotoForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ('question_picture', )
+        
+        
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = '__all__'        
