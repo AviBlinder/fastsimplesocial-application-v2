@@ -5,11 +5,17 @@ from decouple import config
 AWS_EC2_HOST = config('C_AWS_EC2_HOST')
 AWS_EC2_IP = re.search('^ec2-(\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3})(.+)',AWS_EC2_HOST).group(1).replace('-','.')
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config('DEBUG', default=False, cast=bool)
+
 ###
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+if DEBUG:
+    pass
+else:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 ###
 
@@ -23,12 +29,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 #ALLOWED_HOSTS = [AWS_EC2_HOST,AWS_EC2_IP,'www.fastsimplesocial.com']
-ALLOWED_HOSTS = ['www.fastsimplesocial.com']
+ALLOWED_HOSTS = [AWS_EC2_HOST,AWS_EC2_IP,'www.fastsimplesocial.com']
 
 # Application definition
 
