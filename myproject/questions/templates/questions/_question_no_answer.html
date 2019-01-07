@@ -22,7 +22,7 @@
 		{% if question.question_picture %}
 		   {% switch question.extension %}
 			{% case 'mp4' %}
-                  <video width="350" height="200" autoplay controls>
+                  <video width="252" height="200"  preload="none" controls>
   					<source src="{{ question.question_picture.url }}" type="video/mp4">
 					Your browser does not support the video tag.
                   </video>

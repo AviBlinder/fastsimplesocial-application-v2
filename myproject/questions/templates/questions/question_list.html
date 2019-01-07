@@ -42,36 +42,60 @@
 					
 						{% if question.user == request.user %}
               {% switch question.extension %}
-						  {% case 'mp4' %}
-								  <video width="320" height="200"  controls>
-										  <source src="{{ question.question_picture.url }}" type="video/mp4">
-											Your browser does not support the video tag.
-									</video>
-              {% case 'm4a' %}
-                <a data-toggle="modal" href="#{{question.pk}}">              
-                  <audio controls>
+
+			  {% case 'mp4' %}
+
+					<video width="252" height="200"
+					{% if forloop.first %}  
+						controls preload="auto" autoplay>
+					{% else %}
+						controls preload="none">
+					{% endif %}
+						<source src="{{ question.question_picture.url }}" type="video/mp4">
+							Your browser does not support the video tag.
+					</video>
+
+              	{% case 'm4a' %}
+
+                	<a data-toggle="modal" href="#{{question.pk}}">              
+                  	<audio 
+						{% if forloop.first %}  
+							controls preload="auto" autoplay>
+						{% else %}
+							controls preload="none">
+						{% endif %}
                        <source src="{{ question.question_picture.url }}" type="audio/ogg">
                        <source src="{{ question.question_picture.url }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
+                    	Your browser does not support the audio element.
                     </audio>
-                </a>
+                	</a>
 									
-						 	 {% else %}
-										<a href="{% url 'questions:single' username=question.user.email pk=question.pk %}">
-											<img class="card-img-top " style="width:255px; height:200px;"
-												src="{{ question.question_picture.url }}" alt="Question image" >
-										</a>			
-								{% endswitch %}
+				 {% else %}
+					<a href="{% url 'questions:single' username=question.user.email pk=question.pk %}">
+							<img class="card-img-top " style="width:255px; height:200px;"
+							src="{{ question.question_picture.url }}" alt="Question image" >
+					</a>			
+				{% endswitch %}
 					{% else %}
               {% switch question.extension %}
 						  {% case 'mp4' %}
-								  <video width="320" height="200"  controls>
-										  <source src="{{ question.question_picture.url }}" type="video/mp4">
+								  <video width="252" height="200"  
+								{% if forloop.first %}  
+									controls preload="auto" autoplay>
+								{% else %}
+									controls preload="none">
+								{% endif %}
+								<source src="{{ question.question_picture.url }}" type="video/mp4">
 											Your browser does not support the video tag.
 									</video>
               {% case 'm4a' %}
                 <a data-toggle="modal" href="#{{question.pk}}">              
-                  <audio controls>
+                  <audio 
+						{% if forloop.first %}  
+							controls preload="auto" autoplay>
+						{% else %}
+							controls preload="none">
+						{% endif %}
                        <source src="{{ question.question_picture.url }}" type="audio/ogg">
                        <source src="{{ question.question_picture.url }}" type="audio/mpeg">
                     Your browser does not support the audio element.
