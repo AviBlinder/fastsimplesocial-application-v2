@@ -26,9 +26,9 @@
                 </div>
 
                 <div class="form-group">
-                        <label class="required" for="id_email">Name:</label>
+                        <label class="required" for="id_email">Email:</label>
                         <input type="text" name="email" class="form-control" id="id_email" required 
-                                    placeholder="Your Email *" value="" maxlength="200" />                        
+                                    placeholder="Your Email *" value="{{request.user}}" maxlength="200" />                        
                 </div>
 
                 <div class="form-group">
@@ -41,8 +41,8 @@
                 </div>
     
                 <div class="col">
-                <div class="form-group mt-2">
-                        <label class="required" for="id_message"></label>
+                <div class="form-group">
+                        <label class="required" for="id_message">Message:</label>
                         <textarea  id="id_message" class="form-control" required 
                         placeholder="Your Message *" value="Message:"
                                 style="width: 100%; height: auto;" >
