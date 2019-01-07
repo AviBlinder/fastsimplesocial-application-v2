@@ -17,7 +17,6 @@
     				{% if user.is_authenticated %}  
                 <a class="navbar  text-white text-right py-md-2" href="{% url 'home' %}">FastSimpleSocial</a>
 
-    				    <a class="navbar text-white" href="{% url 'questions:logged_user_questions' username=request.user %}">My Questions</a>
     				    <a class="navbar text-white" href="{% url 'questions:dynamic_create' %}">New Question</a>
     
           {% comment %}
@@ -78,5 +77,7 @@
       {% endif %}
       
     </div>
+
+    <a class="navbar text-white" href="{% url 'questions:logged_user_questions' username=request.user %}">My Questions</a>
       
 </nav>
