@@ -1,3 +1,4 @@
+
 import os
 import re
 from decouple import config
@@ -208,13 +209,15 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 DEFAULT_FROM_EMAIL = 'FastSimpleSocial <noreply@fastsimplesocial.com>'
 EMAIL_SUBJECT_PREFIX = '[FastSimpleSocial] '
 
-SERVER_EMAIL = 'aviblinder@gmail.com'
+SERVER_EMAIL = 'fastsimplesocial@gmail.com'
 
 ADMINS = [
     ('Admin1', SERVER_EMAIL),
 ]
  
 MANAGERS = ADMINS
+
+FEEDBACK_MAIL = 'fastsimplesocial@gmail.com'
 ####################################################################################
 
 ########################## A W S ##########################################################

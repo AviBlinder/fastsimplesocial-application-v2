@@ -101,4 +101,4 @@ class PhotoForm(forms.ModelForm):
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = '__all__'        
+        fields = ('name','email','subject','message',)   

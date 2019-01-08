@@ -11,6 +11,15 @@
 .contact-form .form-control{
     border-radius:1rem;
 }
+
+.textarea-field{
+    border-radius:1rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+
+}
 .contact-image{
     text-align: center;
 }

@@ -716,28 +716,47 @@ class BasicUploadView(View):
         return JsonResponse(data)
 
 ######################################################################################################
+##testing mail sent
+#python manage.py sendtestemail testmail@example.com
+#python manage.py sendtestemail --managers
+#python manage.py sendtestemail --admins
+
 from .forms import FeedbackForm
-from django.core.mail import mail_admins
+from django.core.mail import BadHeaderError, send_mail,mail_admins
+from django.http import HttpResponse, HttpResponseRedirect
+from django.conf import settings
 
 def feedback(request):
     if request.method == 'POST':
         f = FeedbackForm(request.POST)
         if f.is_valid():
+
             name = f.cleaned_data['name']
             sender = f.cleaned_data['email']
             subject = "You have a new Feedback from {}:{}".format(name, sender)
             message = "Subject: {}\n\nMessage: {}".format(f.cleaned_data['subject'], f.cleaned_data['message'])
-            mail_admins(subject, message)            
+#            mail_admins(subject, message)            
+            try:
+                send_mail(subject, message, sender, [settings.FEEDBACK_MAIL])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('feedback_thanks')            
             
             f.save()
             messages.add_message(request, messages.INFO, 'Feedback Submitted.')
             
-            return redirect('feedback')
+            return redirect('home')
     else:
         f = FeedbackForm(initial={'email': request.user})
     return render(request, 'questions/feedback.html', {'form': f})
         
 ######################################################################################################
+def feedback_thanks(request):
+    content = {}
+    return render(request, 'questions/feedback_thanks.html', {'context': "content"})
+
+######################################################################################################
+
 def test_menu(request):
     
     content = {}

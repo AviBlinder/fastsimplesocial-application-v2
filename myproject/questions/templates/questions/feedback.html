@@ -14,7 +14,7 @@
 <div class="container contact-form mt-2">
 
         <form method="post" class="mb-4" novalidate>
-            <h3>Submit Your feedback</h3>
+            <h3>Send us your feedback</h3>
 
             {% csrf_token %}
             <div class="row">
@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                         <label class="required" for="id_email">Email:</label>
-                        <input type="text" name="email" class="form-control" id="id_email" required 
+                        <input type="email" name="email" class="form-control" id="id_email" required 
                                     placeholder="Your Email *" value="{{request.user}}" maxlength="200" />                        
                 </div>
 
@@ -36,19 +36,19 @@
                         <input type="text" name="subject" class="form-control" id="id_subject" required 
                                     placeholder="Subject *" value="" maxlength="400" />                        
                 </div>
-                <button type="submit" class="btn btn-success">Send your feedback</button>
+                <button type="submit" class="btn btn-success">Send</button>
+                <a class="btn btn-warning text-white" href="{% url 'home'  %}" role="button">Cancel</a>
 
                 </div>
     
                 <div class="col">
-                <div class="form-group">
-                        <label class="required" for="id_message">Message:</label>
-                        <textarea  id="id_message" class="form-control" required 
-                        placeholder="Your Message *" value="Message:"
-                                style="width: 100%; height: auto;" >
-                    </textarea>
+           <div class="form-row field-message">
+                <div>
+                        <label class="required " for="id_message">Message:</label>
+                            <textarea name="message" id="id_message" required rows="10" cols="30" class="textarea-field">
+                            </textarea>
                 </div>
-
+        </div>
 
             </div>
         </form>

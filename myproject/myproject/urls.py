@@ -38,6 +38,7 @@ urlpatterns = [
     url(r"^questions/", include("questions.urls", namespace="questions")),
     url(r"^groups/",include("groups.urls", namespace="groups")),    
     url(r'^feedback/$', questions_views.feedback, name='feedback'),
+    url(r'^feedback_thanks/$', questions_views.feedback_thanks, name='feedback_thanks'),
     
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
