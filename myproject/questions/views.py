@@ -285,7 +285,7 @@ def create_question(request):
                 messages.warning(request,("Warning, answer {} already exists".format(question)))
 
             else:
-                print "success"
+#                print "success"
                 messages.success(request,"question {question} added.".format(
                                                                 question=new_question.question))
             return redirect('questions:all')
@@ -455,7 +455,7 @@ def update_answer_done(request,pk):
         print "create_question except ! (update_answer_done)"
         messages.warning(request,("Warning, answer {} already exists".format(question.question.encode('utf8'))))
     else:
-        print "success"
+#        print "success"
         messages.success(request,"question {question} added.".format(
                             question=question.question.encode('utf8')))
     return redirect('questions:single', pk=question.pk,username = question.user)
@@ -481,7 +481,7 @@ def dynamic_question(request):
             question = question.decode('UTF-8')
             question_picture = request.FILES.get('question_picture', False)
 
-            print "question_picture = {}".format(question_picture)
+#            print "question_picture = {}".format(question_picture)
             due_date = form.cleaned_data['due_day']
             due_time = form.cleaned_data['due_time']
             min_answerers = form.cleaned_data['minimum_answerers']
@@ -595,8 +595,7 @@ def update_question_params(request,pk):
             min_answerers = form.cleaned_data['min_answerers']
             answer =  form.cleaned_data['answer']
             
-
-            print "question_picture = %s" % question_picture
+#            print "question_picture = %s" % question_picture
             
             def get_aware_datetime(date_str):
                 ret = parse_datetime(date_str)
