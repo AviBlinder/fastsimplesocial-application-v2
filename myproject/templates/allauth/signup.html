@@ -13,8 +13,16 @@
     <div class="col-lg-6  col-md-6 col-sm-8">
       <div class="card">
         <div class="card-body">
-          <a class="btn btn-success mt-2" href="{% provider_login_url "github" %}">Sign up thru Github</a>
-          <a class="btn btn-success mt-2" href="{% provider_login_url "google" %}">Sign up thru Google</a>
+          <a class="btn btn-success mt-2"  style=" background-color: Transparent; background-repeat:no-repeat; color:green;"
+            href="{% provider_login_url "github" %}">
+            <i class="fa fa-github"></i>
+            Sign up with Github
+          </a>
+          <a class="btn btn-success mt-2" style=" background-color: Transparent; background-repeat:no-repeat; color:green;"
+          href="{% provider_login_url "google" %}">
+            <i class="fa fa-google"></i>
+            Sign up with Google
+          </a>
           
           <h3 class="card-title mt-3">Sign up</h3>
 
