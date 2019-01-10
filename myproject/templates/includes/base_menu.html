@@ -3,32 +3,33 @@
 {% load socialaccount %}
 
 
-<nav class="navbar navbar-expand-lg navbar-light " 
-  style="padding-top: 2px; padding-bottom: 2px; max-height: 60px; background-color: #1e97f0; " >
+<nav class="navbar navbar-expand-lg navbar-light"   
+  style="z-index=9999; padding-top: 2px; padding-bottom: 2px; max-height: 60px; background-color: #1e97f0;>
 
-    <button class="navbar-toggler collapsed" data-toggle="collapse" data-target="#first_collapse_target" 
+    <button class="navbar-toggler collapsed " data-toggle="collapse" data-target="#first_collapse_target"
+    style="z-index: 9999;"
     aria-controls="first_collapse_target" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="first_collapse_target">
+    <div  class="collapse navbar-collapse" id="first_collapse_target">
 
 
     <ol class="navbar" >
 
     				{% if user.is_authenticated %}  
-                <a class="navbar  text-white text-right py-md-2" href="{% url 'home' %}">FastSimpleSocial</a>
+                <a class="navbar   text-right py-md-2" href="{% url 'home' %}">FastSimpleSocial</a>
 
-    				    <a class="navbar text-white" href="{% url 'questions:dynamic_create' %}">New Question</a>
+    				    <a class="navbar " href="{% url 'questions:dynamic_create' %}">New Question</a>
     
           {% comment %}
-    				    <a class="navbar text-white" href="{% url 'groups:all' %}">My Groups</a>
-    				    <a class="navbar text-white" href="{% url 'groups:create' %}">New Group</a>
+    				    <a class="navbar " href="{% url 'groups:all' %}">My Groups</a>
+    				    <a class="navbar " href="{% url 'groups:create' %}">New Group</a>
           {% endcomment %}
 
     				{% else %}
 
-    				    <a class="navbar text-white font-weight-bold" href="{% url 'home' %}">FastSimpleSocial</a>
+    				    <a class="navbar  font-weight-bold" href="{% url 'home' %}">FastSimpleSocial</a>
 
     				{% endif %}
 
@@ -58,7 +59,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  href="#"  id="userMenu"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 <span class="text-white"> {{ user.email }} </span>
+                 <span> {{ user.email }} </span>
             </a>
             <div class="dropdown-menu " aria-labelledby="userMenu">
               <a class="dropdown-item" href="{% url 'accounts:my_account' %}">My account</a>
