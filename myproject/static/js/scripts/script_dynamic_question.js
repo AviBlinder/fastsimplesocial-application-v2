@@ -4,7 +4,7 @@
             $("#add").click(function(e) {
                 question_number += 1
                 var button1 = '<input autofocus autocomplete=off ' + 
-                'class ="mt-4 col-lg input-sm" type="text" name="answer"' + 
+                'class ="my-3 col-lg input-sm " style="border-radius:1rem;width:200px;" type="text" name="answer"' + 
                 question_number + 'id=answer' +  question_number + '> </input>';
                 var button2 = '<input class="btn btn-success btn-md mt-2" type="button" value="add answer" id="addanswer" > </input>'
                 var button3 = '<input class="btn btn-danger btn-md mt-2"  type="button" value="delete"    id="delete"> </input>';
@@ -21,7 +21,7 @@
             $('body').on('click', '#addanswer', function(e) {
                 question_number += 1
                 var button1 = '<input autofocus autocomplete=off ' + 
-                'class ="mt-4 col-lg input-sm" type="text" name="answer"' + 
+                'class ="my-4 col-lg input-sm" style="border-radius:1rem; width:200px" type="text" name="answer"' + 
                 question_number + 'id=answer' + question_number + '> </input>';
                 var button2 = '<input class="btn btn-success btn-md mt-2" type="button" value="add answer" id="addanswer" > </input>'
                 var button3 = '<input class="btn btn-danger btn-md mt-2"  type="button" value="delete"    id="delete"> </input>';

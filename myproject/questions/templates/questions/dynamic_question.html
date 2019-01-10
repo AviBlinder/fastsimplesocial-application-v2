@@ -8,14 +8,25 @@
 
 {% block stylesheet %}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" /> 
+<style>
+.contact-form{
+    background: #fff;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    width: 85%;
+}
 
+.contact-form .form-control{
+    border-radius:1rem;
+}
+</style>
 
 {% endblock stylesheet%}
 
 {% block question_content %}
 
 
-<div class='container'>
+<div class='container contact-form'>
         <form method="POST" autocomplete="off" id="postForm" 
             enctype="multipart/form-data" novalidate>
             
@@ -27,12 +38,12 @@
         <div class="row">
             <div class="col">
 
-                <div class="form-row field-question">
-                    <div class="my-4">
+                <div class="form-row field-question input-sm">
+                    <div class="my-1">
                         
                         <label class="required" for="id_question">Ask a question:</label>
                         <input type="text" name="question" id="id_question" required
-                        class="vTextField" style="width: 300px;" maxlength="500"
+                        class="vTextField " style="width: 300px; border-radius:1rem;" maxlength="500"
                          value="?"/>
                     </div>
                 </div>
@@ -43,19 +54,23 @@
                 </button>
                 </div>
 
-                <div class="mt-1 ">
-                    {{ form.answer|as_crispy_field }}
+            <div  class="form-row ">
+                <div class="mt-1">
+                        <label class="required" for="id_answer"></label>
+                        <input type="text" name="answer" id="id_answer" required
+                        class="my-3 col-lg input-sm" style="border-radius:1rem; width:200px">
                 </div>
-                <div id="no-item">
-                </div>
+                    <div id="no-item">
+                    </div>
 
-                <div id='form-bottons'>
-                    <input class="btn btn-success btn-md " type="button" value="add answer" id="add"> </input>
-                </div>
 
-                <div id="items">
-                </div>
+                    <div id='form-bottons'>
+                        <input class="btn btn-success btn-md " type="button" value="add answer" id="add"> </input>
+                    </div>
 
+                    <div id="items">
+                    </div>
+                </div>
             </div>
             <div class="col mt-4"></div>
 
@@ -81,8 +96,10 @@
 </label>
 
                             <p class="datetime">
-                                <input type="date" name="due_day" id="id_due_day" class="vDateField" style="width:150px;" />
-                                <input type="time" name="due_time" id="id_due_time" class="vTimeField ml-2" style="width:100px" />
+                                <input type="date" name="due_day" id="id_due_day" class="vDateField" 
+                                        style="width:150px;" />
+                                <input type="time" name="due_time" id="id_due_time" class="vTimeField ml-2 " 
+                                        style="width:100px" />
                             </p>
                         </div>
                     </div>
@@ -135,7 +152,8 @@
         $(document).ready(function() {
             var question_number = 1;
             question_number += 1
-            var button1 = '<input value="no" class ="my-2 col-lg input-sm" type="text" name="answer"' +
+            var button1 = '<input value="no" class="my-3 col-lg input-sm"' + 
+                        ' style="border-radius:1rem; width:200px;" type="text" name="answer"' +
                 question_number + 'id=answer' + question_number + '> </input>';
 
             $("#no-item").append(button1);
@@ -157,11 +175,48 @@
         $('#id_answer').val("yes");
     </script>
 
-
+{% comment %}
     <script src="{% static 'js/scripts/script_dynamic_question.js' %}">
     </script>
+{% endcomment %}
 
+<script>
+            $(document).ready(function() {
+
+            var question_number = 1;
+            $("#add").click(function(e) {
+                question_number += 1
+                var button1 = '<input autofocus autocomplete=off class ="my-3 col-lg input-sm"' + 
+                ' style="border-radius:1rem; width:200px"' +
+                ' type="text" name="answer"' + 
+                question_number + 'id=answer' +  question_number + '> </input>';
+                var button2 = '<input class="btn btn-success btn-md mt-2" type="button" value="add answer" id="addanswer" > </input>'
+                var button3 = '<input class="btn btn-danger btn-md mt-2"  type="button" value="delete"    id="delete"> </input>';
+                
+                 event.preventDefault();
+                $("#items").append('<div id="extra_items">' + button1 + button2 + button3 + '</div>');
+            });
+
+            $('body').on('click', '#delete', function(e) {
+                $(this).parent('div').remove();
+                question_number -= 1
+            });
+
+            $('body').on('click', '#addanswer', function(e) {
+                question_number += 1
+                var button1 = '<input autofocus autocomplete=off ' + 
+                'class ="my-3 col-lg input-sm" style="border-radius:1rem; width:200px;" type="text" name="answer"' + 
+                question_number + 'id=answer' + question_number + '> </input>';
+                var button2 = '<input class="btn btn-success btn-md mt-2" type="button" value="add answer" id="addanswer" > </input>'
+                var button3 = '<input class="btn btn-danger btn-md mt-2"  type="button" value="delete"    id="delete"> </input>';
+                event.preventDefault();
+                $("#items").append('<div id="extra_items">' + button1 + button2 + button3 + '</div>');
+            });
+
+        }); 
+</script>
     {% endblock %} 
+    
     {% comment 'add picture button' %}
     <button class="mt-4 ml-4" title="Add a picture" onclick="ShowPicute()">
                 <i class="btn btn-large material-icons md-18 ">photo</i></button> 
