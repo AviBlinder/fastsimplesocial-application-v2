@@ -1,43 +1,47 @@
 {% extends "questions/question_base.html" %}
 
 
+
+{% block stylesheet %}
+<style>
+
+.question_layout{
+    background: #fff;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 75%;
+}
+</style>
+
+{% endblock %}
+
+
 {% block question_content %}
-<h3 class="text-center">Confirm deletion </h3>
 
-<div class="container">
-<div class="row justify-content-left">
-	<div class="col">
-	{% include "questions/_question_no_answer.html" with question=object hide_delete=True %}
-	</div>
-</div>
-
+<div class="container question_layout">
+	
 <div class="row">
-	<div class="col mr-3 mt-4 ml-4">
-		<div class="media-heading alert alert-info" role="alert">
-			<span class="username">
-							by @{{ question.user.email }}. </a>
-					</span>
-			<time class="time ml-2">
-						
-							Created at	{{ question.created_at }}
-					</time> {% if question.group %}
-			<span class="group-name">in <a href="{% url 'groups:single' slug=question.group.slug  %}">
-									{{ question.group.name }}</a>
-					</span> {% endif %}
+	<div class="col ">
+	<form method="POST">
+		{% csrf_token %}
+		<div class="d-flex flex-row my-2">
+		<input type="submit" value="Confirm Delete" class=" btn btn-danger btn-large">
+		<a href="{% url 'questions:single' username=user.email pk=object.pk %}" 
+			class="btn btn-info btn-large btn-default ml-2">Cancel</a>
 		</div>
-
-	</div>
-</div>
-<div class="row ">
-	<div class="col">
-		<form method="POST">
-	{% csrf_token %}
-	<input type="submit" value="Confirm Delete" class=" btn btn-danger btn-large">
-	<a href="{% url 'questions:single' username=user.email pk=object.pk %}" 
-			class="btn btn-info btn-large btn-default">Cancel</a>
-		</form>
+	</form>
 		
 	</div>	
 </div>
+
+<div class="row ">
+	<div class="col">
+		<h4>
+	Delete Question: {% include "questions/_question_no_answer.html" with question=object hide_delete=True %}
+	</h4>
+	</div>
+</div>
+
+
 </div>
 {% endblock %}

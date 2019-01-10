@@ -3,39 +3,20 @@
 {% load switch %} 
 
 <div class="question media">
-	<div class="media-body">
-		<h4>{{ question.question_html|safe }}</h4>
+	<div class="media-body mt-3">
+		<h4 class="text-danger"><font face="Cursive">{{ question.question_html|safe }}</font></h4>
 		{% if question.answers.count > 0 %}
-		<div class="media-body alert alert-warning" role="alert">
+		<h5>
+		Answers for this question:
+		<div class="media-body alert " role="alert">
 			{% for answer in question.answers.all %}
-			<h5 class="ml-2">{{forloop.counter}}. {{ answer|safe }}</h5>
+			<h5 class=" text-danger "><font face="Cursive">{{forloop.counter}}. {{ answer|safe }}</font></h5>
 
 			{% endfor %}
+		</h5>
 		</div>
 		{% else %}
-		<p> No answers for this question</p>
-		{% endif %}
-
-		
-	</div>
-	<div class="mt-4 ml-4">
-		{% if question.question_picture %}
-		   {% switch question.extension %}
-			{% case 'mp4' %}
-                  <video width="252" height="200"  preload="none" controls>
-  					<source src="{{ question.question_picture.url }}" type="video/mp4">
-					Your browser does not support the video tag.
-                  </video>
-            {% case 'm4a' %}
-                  <audio controls>
-  					<source src="{{ question.question_picture.url }}" type="video/mp4">
-					Your browser does not support the audio tag.
-                  </audio>
-  			{% else %}
-				<img class="mr-4 mb-1  img-responsive media-object" style="width:150px; height:150px" 
-					src="{{ question.question_picture.url }}" alt="Question image"> 
-            {% endswitch %}
-                
+		<h5 class="ml-2 text-danger"> No answers for this question</h5>
 		{% endif %}
 	</div>
 
