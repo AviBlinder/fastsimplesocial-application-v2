@@ -1,79 +1,105 @@
 {% load static %}
 
+{% load socialaccount %}
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success sticky-top">
-    
-    <button class="navbar-toggler" data-toggle="collapse" data-target="#first_collapse_target">
+
+<nav class="navbar navbar-expand-lg navbar-light"    
+  style="z-index=9999; padding-top: 2px; padding-bottom: 2px; max-height: 60px; background-color: #1e97f0;">
+
+    <button class="navbar-toggler collapsed " data-toggle="collapse" data-target="#first_collapse_target"
+    style="z-index: 9999;"
+    aria-controls="first_collapse_target" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="first_collapse_target">
-        
-    <a class="navbar-brand"><img src="{% static 'img/pic4.jpeg' %}" width=30> </a>
+    <div  class="collapse navbar-collapse" id="first_collapse_target">
 
-    <span class="navbar-text">FastSimpleSocial</span>
+
+    <ol class="navbar" >
+
+    				{% if user.is_authenticated %}  
+                <a class="navbar   text-right py-md-2" href="{% url 'home' %}">FastSimpleSocial</a>
+
+    				    <a class="navbar " href="{% url 'questions:dynamic_create' %}">New Question</a>
     
-    <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="first_dropdown_target"
-                        href="#">Dropdown Link
+          {% comment %}
+    				    <a class="navbar " href="{% url 'groups:all' %}">My Groups</a>
+    				    <a class="navbar " href="{% url 'groups:create' %}">New Group</a>
+          {% endcomment %}
+
+    				{% else %}
+
+    				    <a class="navbar  font-weight-bold" href="{% url 'home' %}">FastSimpleSocial</a>
+
+    				{% endif %}
+
+    </ol>
+    
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<ul></ul> 
+
+        <div id="navbarSupportedContent">
+        <button class="btn  btn-rounded btn-sm  ml-sm-2 navbar-toggler" 
+                data-target="#navbarSeatch" 
+                    aria-controls="navbarSeatch" aria-expanded="false" aria-label="Toggle navigation"              
+                    type="submit"><i class="material-icons md-18 md-dark">search</i></button>
+
+        <div class="collapse navbar-collapse" id="navbarSeatch">    
+            <form class="mb-2 d-flex flex-row" method="GET" action="{% url 'questions:search_question'  %}" role="search">
+                <input autocomplete=off class="form-control" type="search" name='search_question' 
+                placeholder="Search Question" aria-label="Search">
+            </form>
+        </div>
+        </div>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+     {% if user.is_authenticated %}
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  href="#"  id="userMenu"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span> {{ user.email }} </span>
             </a>
-    
-            <div class="dropdown-menu" aria-labelledby="first_dropdown_target">
-                <ul class="navbar-nav">
-                    <a class="dropdown-item">My Questions</a>
-                    <a class="dropdown-item">New Question</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item">My Groups</a>
-                </ul>
+            <div class="dropdown-menu " aria-labelledby="userMenu">
+              <a class="dropdown-item" href="{% url 'accounts:my_account' %}">My account</a>
+              <!--<a class="dropdown-item" href="{% url 'accounts:password_change' %}">Change password</a>-->
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a>
+
+
             </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link 2</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link 3</a>
-        </li>
-        
-    </ul>
+          </li>
+        </ul>
+      {% else %}
+        <ul class="navbar navbar-right">
+          <form class="form-inline  ">
+            <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary">Log in</a>
+          </form>
+        </ul>
+      {% endif %}
+      
     </div>
 
+    <a class="navbar text-white" href="{% url 'questions:logged_user_questions' username=request.user %}">My Questions</a>
 </nav>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic5.jpeg"> 
-        <img src="{% static 'img/pic5.jpeg' %}"  class="img-fluid">
-</a>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic6.jpeg"> 
-        <img src="{% static 'img/pic6.jpeg' %}"  class="img-fluid">
-</a>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic7.jpeg"> 
-        <img src="{% static 'img/pic7.jpeg' %}"  class="img-fluid">
-</a>
-<br>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic1.jpeg"> 
-        <img src="{% static 'img/pic1.jpeg' %}"  class="img-fluid">
-</a>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic2.jpeg"> 
-        <img src="{% static 'img/pic2.jpeg' %}"  class="img-fluid">
-</a>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic3.jpeg"> 
-        <img src="{% static 'img/pic3.jpeg' %}"  class="img-fluid">
-</a>
-<br>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic8.jpeg"> 
-        <img src="{% static 'img/pic5.jpeg' %}"  class="img-fluid">
-</a>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic9.jpeg"> 
-        <img src="{% static 'img/pic6.jpeg' %}"  class="img-fluid">
-</a>
-<a target="_blank" rel="noopener noreferrer" 
-        href="https://s3-eu-west-1.amazonaws.com/simplesocialproject/static/img/pic10.jpeg"> 
-        <img src="{% static 'img/pic7.jpeg' %}"  class="img-fluid">
-</a>
+
+<div class="container">
+  <nav class="navbar fixed-bottom navbar-light mx-4" 
+  style="background-color: #5d6d5f;  min-height:20px; border-radius:0; ">
+    <a  style="font-size: 14px; color: white; text-align: left;" href="{% url 'home' %}">
+    <i class="fa fa-home fa-lg aria-hidden="true"></i>
+    </a>
+    <a  style="font-size: 14px; color: white; text-align: center;" href="{% url 'feedback'  %}">Feedback</a>
+    
+    <a  target="_blank" rel="noopener noreferrer" style="font-size: 14px; color: white; text-align: left;" 
+    href="https://app.termly.io/document/privacy-policy/2101cde5-c04e-48fc-8c1b-ed071650b08b">Privacy Policy</a>
+
+  </nav>
+</div>
+
