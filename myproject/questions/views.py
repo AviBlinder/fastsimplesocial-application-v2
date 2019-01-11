@@ -382,7 +382,8 @@ def question_voting(request, pk):
                     messages.success(request,"{answer} added to question {question}.".format(answer=answer.encode('utf-8'),
                                                                 question=question.question.encode('utf-8')))
 #        return redirect('questions:single', pk=question.pk, username = question.user)
-        return redirect('questions:for_user',  username = request.user)
+        return redirect('questions:single',  username = question.user,pk=question.pk)
+
     else:
         form = forms.VoteForm(answer_list)
         

@@ -61,24 +61,25 @@
         <div id="question_pk" style="display:none;">{{question.pk}}</div>
 
         <div class="col">
-            
-                    {% include "questions/_question_detail_media_body.html" %}
-
-                    {% include "questions/_question_detail_media_footer.html" %}
-        </div>
-        <div class="col">
 
                 {% if question_answered_by_user == True %}
 
                     {% include "questions/_question_detail_results.html" %}
 
                 {% endif %}        
+
         </div>
-    {% elif  user.is_authenticated %}
         <div class="col">
+            
                     {% include "questions/_question_detail_media_body.html" %}
 
                     {% include "questions/_question_detail_media_footer.html" %}
+
+        </div>
+
+    {% elif  user.is_authenticated %}
+        <div class="col">
+                    {% include "questions/_question_detail_media_body.html" %}
 
 
                 {% if question_answered_by_user == True %}
@@ -86,6 +87,8 @@
                     {% include "questions/_question_detail_results.html" %}
 
                 {% endif %}        
+
+            {% include "questions/_question_detail_media_footer.html" %}
 
         </div>                
     {% else %}

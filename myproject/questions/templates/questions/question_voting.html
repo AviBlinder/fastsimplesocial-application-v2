@@ -2,16 +2,82 @@
 
 {% load crispy_forms_tags %}
 
+{% block stylesheet %}
+<style>
 
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+  top: 8px;
+  left: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: white;
+}
+</style>
+{% endblock %}
 
 {% block question_content %}
-<div>
+<div style=" margin-top: 5%; margin-bottom: 10%;">
     {% if voted_by_user %}
-    
-    {% comment %} 
-            style="transform:matrix(0.9,0.3,-0.5,0.866,0,6);"
-    {% endcomment %}
-        <div class="container mt-4">
+
+        <div class="container mt-4" style="background: #fff;;width: 50%;">
             <div class="jumbotron" style="background-color: rgba(0, 0, 0, 0.0);">
                 <h5 class=" text-center" > You already voted for this question! </h5>
                 <div class="text-center mt-4">
@@ -21,35 +87,39 @@
             </div>
         </div>
     {% else %}
+    <div class="ml-4" style="background: #fff;;width: 70%; margin:auto; align="center"">
     <form action="{% url 'questions:vote' pk=question.pk  %}" method="post" id="modal-vote" class="form">
         {% csrf_token %}
-        <div class="modal-content">
-            <div class="modal-header bg bg-info">
-                <div class"d-flex justify-content-center" >
-                    <h3> {{ question }}</h3>
+            <div class="modal-header">
+                <div >
+                    <h3 class="ml-5"> {{ question }}</h3>
                 </div>
             </div>
             <div class="modal-body">
                 {{ form.media }}
-        <div class="row">
-            <div class="col-6">
-                {{ form.vote | as_crispy_field }}
-            </div>
-        </div>
+                    <div class="col-6">
+                    {% for answer in question.answers.all %}
+                   <div>
+                        <label for="id_id_vote_0_{{forloop.counter}}" class="container">
+                            {{answer}}  
+                            <input  type="radio"  name="vote" id="id_id_vote_0_{{forloop.counter}}" 
+                            value="{{answer.id }}" >
+                            <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="d-flex justify-content-between"> 
-                    <input type="submit" class="btn btn-primary" value="Vote" />
-    			   {% comment %}
-    			    <a class="btn btn-danger text-white  ml-4" href="{% url 'questions:all' %}">Close</a>
-    			   {% endcomment %}
-
+                    <button type="submit" class="btn btn-primary" value="Vote">Vote
+                    </button>
     			<a class="btn btn-danger text-white  ml-4" 
     			        href="{% url 'questions:single' username=question.user.email pk=question.pk %}">Close</a>
                 </div>
             </div>
-        </div>
     </form>
+    </div>
  {% endif %}
 </div>
 {% comment %}
