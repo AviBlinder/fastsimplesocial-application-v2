@@ -476,10 +476,17 @@ def dynamic_question(request):
     
         # for field in form:
         #     print "field: {}".format(field)
-            
+
         if form.is_valid():
             question = form.cleaned_data['question'].encode('UTF-8')
             question = question.decode('UTF-8')
+            if question == "":
+                question = "question_"  + str(Question.objects.filter(user= request.user).count() + 1)
+
+            if question == "":
+                question = "question_" + str(Question.objects.filter(user= request.user).count() + 1)
+                print "question name is {}".format(question)
+            
             question_picture = request.FILES.get('question_picture', False)
 
 #            print "question_picture = {}".format(question_picture)

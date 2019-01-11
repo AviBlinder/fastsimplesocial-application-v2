@@ -58,7 +58,7 @@ class AnswerForm(forms.Form):
 
 class DynamicAnswerForm(forms.Form):
     
-    question = forms.CharField(label='Ask a question',widget=forms.TextInput(attrs={'class': 'form-control', 'autofocus': True}))
+    question = forms.CharField(label='Ask a question',required=False,widget=forms.TextInput(attrs={'class': 'form-control', 'autofocus': True}))
     
     answer = forms.CharField(label="your answers",required=False,widget=forms.TextInput(attrs={'class': 'form-control', 'autofocus': False}))
 
