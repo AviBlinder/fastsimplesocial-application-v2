@@ -1,0 +1,9 @@
+{
+  "name": "FastSimpleSocial Web App",
+  "short_name": "FastSimpleSocial",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Ask, Share, Decide im just a few moments.",
+
+}
