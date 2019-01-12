@@ -17,11 +17,18 @@
           <i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
       </li>
       <li class="nav-item ml-4 mt-1">
-    		<a class="nav-link " href="{% url 'questions:logged_user_questions' username=request.user %}">My Questions</a>
+    		<a class="nav-link " href="{% url 'questions:logged_user_questions' username=request.user %}">
+    		  My Questions</a>
       </li>
+
       <li class="nav-item ml-4 mt-1">
-        <a class="nav-link " href="{% url 'questions:dynamic_create' %}">New Question</a>      </li>
-        
+        <a class="nav-link " href="{% url 'questions:user_voted_questions'  username=request.user %}">
+          Question I Voted</a>
+      </li>
+
+      <li class="nav-item ml-4 mt-1">
+        <a class="nav-link " href="{% url 'questions:dynamic_create' %}">New Question</a>
+      </li>
         {% else %}
       <li class="nav-item ml-4 mt-1">
         <a class="nav-link  py-md-2" href="{% url 'home' %}">

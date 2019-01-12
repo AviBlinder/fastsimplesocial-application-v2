@@ -7,8 +7,6 @@ from django.views.i18n import JavaScriptCatalog
 app_name='questions'
 
 urlpatterns = [
-#    url(r"^$", views.QuestionList.as_view(), name="all"),
-    url(r"^$", views.UserQuestions.as_view(), name="all"),
 
     url(r"^test_menu", views.test_menu, name="test_menu"),
 
@@ -17,8 +15,13 @@ urlpatterns = [
     url(r"vote/(?P<pk>\d+)/$",views.question_voting,name="vote"),
     url(r"new/answer/$", views.CreateAnswer.as_view(), name="create_answer"),   
     url(r"new/answer_question/(?P<pk>\d+)/$", views.create_answer, name="create_answer_question"),   
-    url(r"by/(?P<username>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$",views.UserQuestions.as_view(),name="for_user"),
-    url(r"by/(?P<username>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$",views.MyQuestionsList.as_view(),name="logged_user_questions"),
+
+    url(r"voted_by/(?P<username>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$",
+    views.MyVotedyQuestionsList.as_view(),name="user_voted_questions"),
+
+    url(r"by/(?P<username>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$",views.QuestionList.as_view(),name="logged_user_questions"),
+
+
     url(r"by/(?P<username>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<pk>\d+)/$",views.QuestionDetail.as_view(),name="single"),
     url(r"delete/(?P<pk>\d+)/$",views.DeleteQuestion.as_view(),name="delete"),
     url(r"delete/answer/(?P<pk>\d+)/$",views.DeleteAnswer.as_view(),name="delete_answer"),    
@@ -42,6 +45,7 @@ urlpatterns = [
 #
     url(r'^basic-upload/$', views.BasicUploadView.as_view(), name='basic_upload'),
                                                             
+    url(r"^$", views.QuestionList.as_view(), name="all"),
 
 ]
 

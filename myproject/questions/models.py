@@ -157,11 +157,14 @@ class QuestionVotedByUser(models.Model):
     answer = models.ForeignKey(Answer, related_name="answered_question_by_user",null=True)
     
 
-    def __unicode__(self):
-        return "Question {} by {}".format(self.question.question,self.user.username)
+    # def __unicode__(self):
+    #     return "Question {} by {}".format(self.question.question,self.user)
         
+    # def __str__(self):
+    #     return unicode(self).encode('utf-8')
+
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        return self.question.question + "-" +  self.user.email
 
     class Meta:
         unique_together = ["question","user"]

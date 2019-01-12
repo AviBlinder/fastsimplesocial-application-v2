@@ -120,6 +120,31 @@ class MyQuestionsList(ListView):
 
 ################################################################################################################
 @method_decorator(login_required, name='dispatch')
+class MyVotedyQuestionsList(ListView):
+    model = QuestionVotedByUser
+    template_name = "questions/question_list_voted.html"
+
+    print "inside MyVotedyQuestionsList"
+    def get_queryset(self):
+        try:
+#user_voted_question            
+            self.questions = QuestionVotedByUser.objects.prefetch_related("question").filter(user=self.request.user)
+        except Exception as e:
+                print '%s (%s)' % (e.message, type(e)) 
+                print "MyVotedyQuestionsList except !"
+ 
+#            raise Http404
+        else:
+            return self.questions
+
+    def get_context_data(self, **kwargs):
+        context = super(MyVotedyQuestionsList,self).get_context_data(**kwargs)
+        context["questions"] = self.questions
+        return context
+
+
+################################################################################################################
+@method_decorator(login_required, name='dispatch')
 class SearchUserQuestions(ListView):
     model = Question
     pk_url_kwarg = 'search_words'
@@ -142,8 +167,6 @@ class SearchUserQuestions(ListView):
         context = super(SearchUserQuestions,self).get_context_data(**kwargs)
         context["questions"] = self.question_user
         return context
-
-
 ###########################################################################################################
 @method_decorator(login_required, name='dispatch')
 class QuestionDetail( SelectRelatedMixin,DetailView):
