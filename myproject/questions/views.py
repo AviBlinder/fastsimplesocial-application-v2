@@ -233,7 +233,7 @@ class DeleteQuestion(SelectRelatedMixin,DeleteView):
         return queryset.filter(user_id=self.request.user.id)
 
     def get_success_url(self):
-            return reverse('questions:for_user', kwargs={ 'username': self.request.user})
+            return reverse('questions:logged_user_questions', kwargs={ 'username': self.request.user})
         
 
 @method_decorator(login_required, name='dispatch')

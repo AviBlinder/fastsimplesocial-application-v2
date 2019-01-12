@@ -4,16 +4,16 @@
 
 <div class="question media">
 	<div class="media-body mt-3">
-		<h4 class="text-danger"><font face="Cursive">{{ question.question_html|safe }}</font></h4>
+		<h4 class="text-danger display-4"><font face="Cursive">{{ question.question_html|safe }}</font></h4>
 		{% if question.answers.count > 0 %}
-		<h5>
+		<h4>
 		Answers for this question:
 		<div class="media-body alert " role="alert">
 			{% for answer in question.answers.all %}
-			<h5 class=" text-danger "><font face="Cursive">{{forloop.counter}}. {{ answer|safe }}</font></h5>
+			<h3 class=" text-danger  "><font face="Cursive">{{forloop.counter}}. {{ answer|safe }}</font></h3>
 
 			{% endfor %}
-		</h5>
+		</h4>
 		</div>
 		{% else %}
 		<h5 class="ml-2 text-danger"> No answers for this question</h5>

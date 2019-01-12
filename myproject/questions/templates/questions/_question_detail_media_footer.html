@@ -1,9 +1,28 @@
 <div class="media-footer">
+	{% if question.user == request.user  and question.editing_done is False %}
+	<form method="POST" autocomplete="off" action="{% url 'questions:update_question_params' pk=question.pk %}" 
+					id="QuestionParamsForm" enctype="multipart/form-data" novalidate>
+		{% csrf_token %}
+					<div class="d-flex flex-row mt-2 mb-3 ">
 
+
+                    <div class="field-question_picture">
+                            <label class="inputfile" for="id_question_picture"></label>
+                            <input class="btn btn-sm" style="background-color: #e6e6e6" 
+                            type="file" name="question_picture" id="id_question_picture" />
+                    </div>
+                    	<button type="submit" data-toggle="tooltip" 
+								data-placement="auto" title="Upload selected file">
+		                   	<i class="fa fa-check-circle ml-1"></i>
+		                </button>
+                   </div> 
+	</form>
+	{% endif %}
 	<div class="media-heading alert alert-info" role="alert">
 
 		<p class="my-2 mx-2">
-			Publish Results On: {{question.due_date |default_if_none:"Not set"}} {% if question.editing_done is False %}
+			Publish Results After: {{question.due_date |default_if_none:"Not set"}} 
+			{% if question.editing_done is False %}
 
 			<button onclick="ShowDateTime()" style="border: none; background:none;font-size:1em;color:CadetBlue;">
 							<i class="fa fa-wrench"></i>
@@ -15,7 +34,6 @@
 							<i class="fa fa-wrench"></i>
 						</button> {% endif %}
 		</p>
-	</div>
 
 	{% if question.editing_done is False %}
 
@@ -29,11 +47,6 @@
                    				  Update Question 
                    				  <i class="fa fa-check-circle ml-1"></i>
                 			</button>
-			</div>
-			<a class="btn btn-success text-white ml-2" data-toggle="tooltip" data-placement="auto" title="Press to start voting" href="{% url 'questions:question_editing_done' pk=question.pk %}" role="button"> 
-							  Question Ready  </a>
-			<div class="mt-2 ml-2">
-				{{ form.question_picture }}
 			</div>
 		</div>
 		
@@ -52,4 +65,6 @@
 		</div>
 	</form>
 	{% endif %}
+	</div>
+
 </div>

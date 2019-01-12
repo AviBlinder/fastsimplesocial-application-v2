@@ -22,7 +22,7 @@
 {% block header %}
 
 
-	<div class="d-flex flex-row  mt-3 ml-4">
+	<div class="d-flex flex-row  mt-3 ml-1">
     {% if question.user == request.user %}
     	 <div class="mb-4 d-flex justify-content-start">
     	    <a  href="{% url 'questions:delete' pk=question.pk %}" 
@@ -37,6 +37,17 @@
     	<div class="ml-4 d-flex justify-content-center">
     	    <h3 > {{ question.question_html|safe }} </h3>
     	</div>
+    	
+     {% if question.user == request.user and  question.editing_done is False %}
+    <div class="ml-2">
+     	<form method="POST" autocomplete="off" action="{% url 'questions:update_question_params' pk=question.pk %}" 
+					id="QuestionParamsForm" enctype="multipart/form-data" novalidate>
+		{% csrf_token %}
+			<button class="btn btn-success text-white ml-2" data-toggle="tooltip" data-placement="auto" title="Press to start voting" href="{% url 'questions:question_editing_done' pk=question.pk %}" role="button"> 
+							  Ready to vote  </button>
+		</form>
+		</div>
+     {% endif %}
 	</div>
 	
     <div class = "d-flex flex-row  justify-content-center mt-1 mb-2 ml-4">
@@ -56,7 +67,6 @@
 {% block question_content %}
 
 
-<div class="row">
 	{% if question.user == request.user %}
         <div id="question_pk" style="display:none;">{{question.pk}}</div>
 
@@ -68,12 +78,14 @@
 
                 {% endif %}        
 
+
         </div>
-        <div class="col">
-            
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
                     {% include "questions/_question_detail_media_body.html" %}
 
                     {% include "questions/_question_detail_media_footer.html" %}
+            
 
         </div>
 
@@ -101,7 +113,6 @@
 
         </div>        
     {% endif %}
-</div> 
 
         {% if question.editing_done is True  and question.user == request.user %}
 
