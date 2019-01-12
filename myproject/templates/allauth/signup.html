@@ -1,6 +1,7 @@
 {% extends 'base_accounts.html' %}
 
 {% load socialaccount %}
+{% providers_media_js %}
 
 {% block title %}Sign up to FastSimpleSocial{% endblock %}
 
@@ -22,6 +23,12 @@
           href="{% provider_login_url "google" %}">
             <i class="fa fa-google"></i>
             Sign up with Google
+          </a>
+
+          <a class="btn btn-success mt-2" style=" background-color: Transparent; background-repeat:no-repeat; color:green;"
+          href="{% provider_login_url "facebook" method="js_sdk" %}">
+            <i class="fa fa-facebook"></i>
+            Sign up with Facebook
           </a>
 
             
