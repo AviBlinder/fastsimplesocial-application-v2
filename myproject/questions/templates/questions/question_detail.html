@@ -40,11 +40,14 @@
     	
      {% if question.user == request.user and question.editing_done is False %}
     <div class="ml-2">
-     	<form method="POST" autocomplete="off" action="{% url 'questions:update_question_params' pk=question.pk %}" 
+     	<form method="POST" autocomplete="off" action="{% url 'questions:question_editing_done' pk=question.pk %}" 
 					id="QuestionParamsForm" enctype="multipart/form-data" novalidate>
 		{% csrf_token %}
-			<button class="btn btn-success text-white ml-2" data-toggle="tooltip" data-placement="auto" title="Press to start voting" href="{% url 'questions:question_editing_done' pk=question.pk %}" role="button"> 
-							  Ready to vote  </button>
+			<button class="btn btn-success text-white ml-2" data-toggle="tooltip" 
+			    data-placement="auto" title="Press to start voting" 
+			    role="button"> 
+			    Ready to vote  
+			</button>
 		</form>
 		</div>
      {% endif %}
