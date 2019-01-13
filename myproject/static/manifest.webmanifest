@@ -1,9 +1,11 @@
 {
   "name": "FastSimpleSocial Web App",
-  "short_name": "FastSimpleSocial",
-  "start_url": "/?utm_source=homescreen",
+  "short_name": "Fast&Simple",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "DeepSkyBlue",
+  "theme_color": "#2196F3"
+  
   "description": "Ask, Share, Decide im just a few moments.",
   "icons" : [
     {
