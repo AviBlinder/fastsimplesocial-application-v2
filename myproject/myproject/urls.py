@@ -40,5 +40,8 @@ urlpatterns = [
     url(r'^feedback/$', questions_views.feedback, name='feedback'),
     url(r'^feedback_thanks/$', questions_views.feedback_thanks, name='feedback_thanks'),
     
+#pwa
+    url('',include('pwa.urls')),
+    
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

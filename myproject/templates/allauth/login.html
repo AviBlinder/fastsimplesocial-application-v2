@@ -17,12 +17,14 @@
             href="{% provider_login_url "google" %}"> 
           <i class="fa fa-google"></i> Login with Google</a>
 
-    {% comment %}
 
           <a class="btn btn-primary ml-3 mt-2" style=" background-color: Transparent; background-repeat:no-repeat; color:blue;" 
-            href="{% provider_login_url "facebook" method="js_sdk" %}"> 
+            href="{% provider_login_url "facebook"  %}"> 
           <i class="fa fa-facebook"></i> Login with Facebook</a>
 
+    {% comment %}
+            href="{% provider_login_url "facebook" method="js_sdk" %}"> 
+    
 <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
   {% endcomment %}
 

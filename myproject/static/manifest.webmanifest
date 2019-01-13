@@ -1,9 +1,16 @@
 {
   "name": "FastSimpleSocial Web App",
   "short_name": "FastSimpleSocial",
-  "start_url": ".",
+  "start_url": "/?utm_source=homescreen",
   "display": "standalone",
-  "background_color": "#fff",
+  "background_color": "DeepSkyBlue",
   "description": "Ask, Share, Decide im just a few moments.",
+  "icons" : [
+    {
+      "src" : "/static/img/favicon-192x192.png",
+      "sizes": "192x192",
+      "type" : "image/png"
+    }
+    ]
 
 }
