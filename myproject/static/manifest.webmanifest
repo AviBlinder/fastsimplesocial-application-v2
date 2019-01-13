@@ -1,7 +1,7 @@
 {
   "name": "FastSimpleSocial Web App",
   "short_name": "Fast&Simple",
-  "start_url": "/",
+  "start_url": "/?utm_source=homescreen",
   "display": "standalone",
   "background_color": "DeepSkyBlue",
   "theme_color": "#2196F3"
