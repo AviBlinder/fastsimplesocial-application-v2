@@ -139,11 +139,12 @@ ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_REDIRECT_URL = 'home'
 ###################################
 ##Facebook 
-SOCIALACCOUNT_PROVIDERS = \
-    {'facebook':
-       {'METHOD': 'oauth2',
-        'SCOPE': ['email','public_profile', 'user_friends'],
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', ],
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
         'FIELDS': [
             'id',
             'email',
@@ -154,12 +155,15 @@ SOCIALACCOUNT_PROVIDERS = \
             'locale',
             'timezone',
             'link',
-#            'gender',
-            'updated_time'],
+            'gender',
+            'updated_time',
+        ],
         'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request: 'kr_KR',
+        'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.4'}}
+        'VERSION': 'v2.12',
+    }
+}
 
 
 ################################################################################################

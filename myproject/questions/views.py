@@ -124,7 +124,7 @@ class MyVotedyQuestionsList(ListView):
     model = QuestionVotedByUser
     template_name = "questions/question_list_voted.html"
 
-    print "inside MyVotedyQuestionsList"
+#    print "inside MyVotedyQuestionsList"
     def get_queryset(self):
         try:
 #user_voted_question            
@@ -506,10 +506,6 @@ def dynamic_question(request):
             if question == "":
                 question = "question_"  + str(Question.objects.filter(user= request.user).count() + 1)
 
-            if question == "":
-                question = "question_" + str(Question.objects.filter(user= request.user).count() + 1)
-                print "question name is {}".format(question)
-            
             question_picture = request.FILES.get('question_picture', False)
 
 #            print "question_picture = {}".format(question_picture)
