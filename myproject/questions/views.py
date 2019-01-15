@@ -284,7 +284,7 @@ class CreateAnswer(CreateView):
 def create_question(request):
 
     if request.method == 'POST':
-        print "create_question - POST - request = {}".format(request)
+        print "create_question - POST - request = {}".format(request.META)
         form = forms.QuestionAnswersForm(request.POST,request.FILES)
         if form.is_valid():
             question = form.cleaned_data['question']
@@ -315,7 +315,7 @@ def create_question(request):
             return redirect('questions:all')
                                                                
     else:
-        print "create_question - GET - request = {}".format(request)
+        print "create_question - GET - request = {}".format(request.META)
         
         form = forms.QuestionAnswersForm()
 
