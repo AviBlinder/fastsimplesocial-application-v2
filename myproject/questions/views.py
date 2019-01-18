@@ -444,9 +444,10 @@ def question_statistics(pk):
             new_list.append(new_dict)
             resulst_list.append(resulst_dict)
 
+#        print "new_list = {}".format(new_list)
         question_results = {  'data': new_list  }
         Options = {
-                   'pie': {
+                   'bar': {
             'allowPointSelect': 'true',
             'cursor': 'pointer',
             'dataLabels': {

@@ -8,6 +8,7 @@ AWS_EC2_IP = re.search('^ec2-(\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3})(.+)',AWS_EC2_HOST
 
 AWS_DEV_EC2 = config('C_AWS_DEV_EC2',default=AWS_EC2_HOST)
 AWS_DEV_EC2_IP = re.search('^ec2-(\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3})(.+)',AWS_DEV_EC2).group(1).replace('-','.')
+AWS_DEV_DOMAIN = config('C_AWS_DEV_DOMAIN',default='www.fastsimplesocial.com')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -38,7 +39,8 @@ SECRET_KEY = config('SECRET_KEY')
 
 
 #ALLOWED_HOSTS = [AWS_EC2_HOST,AWS_EC2_IP,'www.fastsimplesocial.com']
-ALLOWED_HOSTS = [AWS_EC2_HOST,AWS_EC2_IP,AWS_DEV_EC2,AWS_DEV_EC2_IP,'www.fastsimplesocial.com']
+ALLOWED_HOSTS = ['www.fastsimplesocial.com']
+ALLOWED_HOSTS += [AWS_EC2_HOST,AWS_EC2_IP,AWS_DEV_EC2,AWS_DEV_EC2_IP,AWS_DEV_DOMAIN,]
 
 # Application definition
 
