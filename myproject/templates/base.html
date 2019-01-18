@@ -125,6 +125,7 @@ nav {
 
 {% block addthis %}{% endblock %}  
 
+{% comment %}
 <script>
 if ('serviceworker' in navigator) {
     navigator.serviceworker
@@ -163,6 +164,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
   });
 });    
 </script>
+{% endcomment %}
 </body>
 {% endblock body %}
 </html>

@@ -471,6 +471,35 @@ def question_statistics(pk):
         return (chart_data,resulst_list)
 
 ##############################################################################################################
+def question_statistics_new(request):
+
+        answers = []
+        votes = []    
+        for answer in Question.objects.get(pk=39).answers.all().order_by('-votes'):
+                print "answer.answer  = {}".format(answer.answer.encode('UTF-8'))
+                print "answer.votes= {}".format(answer.votes)
+
+                votes.append(answer.votes)
+                answers.append(answer.answer.encode('UTF-8'))
+
+            # if answer.answer == None or answer.answer == "":
+            #     pass
+            # else:
+            #     print "answer.answer  = {}".format(answer.answer.encode('UTF-8'))
+            #     print "answer.votes= {}".format(answer.votes)
+            #     answer_name = answer_name.append(answer.answer.encode('UTF-8'))
+            #     answer_votes = answer_votes.append(answer.votes)
+            #     print "answer_name = {}".format(answer_name)
+            #     print "answer_votes = {}".format(answer_votes)
+
+
+        answers = [1,2,3]    
+#        votes = [0, 10, 5]
+        print "votes = {}".format(votes)
+        return render(request, 'questions/pie.html', {'labels': answers,'votes':votes})
+
+
+##############################################################################################################
 def update_answer_done(request,pk):
     try:
         question = Question.objects.get(pk=pk)

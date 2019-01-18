@@ -151,13 +151,15 @@
 
 
 
+{% comment 'init tooltips' %}
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
     
 });
-</script>
 
+</script>
+{% endcomment %}
     <!--<script src="{% static 'js/scripts/script_question_detail_toggle_elements.js' %}"> </script>    -->
 <!---->
 <script>
@@ -214,7 +216,6 @@ function AnswerToggle(forloopNumber,answer_pk){
 <!---->
     
     <script src="{% static 'js/scripts/script_question_details.js' %}"> </script>
-
      <!--<script src="{% static 'js/scripts/script_delete_answer.js' %}" ></script>-->
 <!---->
 <script>

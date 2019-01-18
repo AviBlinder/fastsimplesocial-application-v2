@@ -58,20 +58,28 @@
         </table>
        </div>
     </div>
+
+
     <div id="dont_show_question_results" style="display:none">
 
-{% comment %}    
+    <span style="display:none;" id="question_due_date">{{question.due_date|date:"Y-m-d H:i"}}  </span> 
+
+{% comment 'dont_show_question_results'  %}
+
         <div class=" mt-4">
 
-            <div class="container">
+            <div class="container" style="max-width: 450px;">
 
                 <div class="jumbotron bg-success">
-
                     <p > Results will be published after 
-                    <span id="question_due_date">{{question.due_date|date:"Y-m-d H:i"}} </span> and after at least 
-                    {{question.min_answerers}} answer{{question.min_answerers |pluralize}}  </p>
+                    <span id="question_due_date">{{question.due_date|date:"Y-m-d H:i"}} </span> 
+                    and after at least 
+                    {{question.min_answerers|default_if_none:0}} 
+                        answer{{question.min_answerers | default_if_none:"s"  | pluralize }}  </p>
+                    
                 </div>
+
             </div>
-        </div>     
-{% endcomment %}        
+        </div>  
+{% endcomment %}
     </div>
