@@ -142,29 +142,29 @@
 				</div>
 				{% endif %}
 
+              {% switch question.extension %}
+					{% case 'mp4' %}
+					{% else %}
+			  {% endswitch %}
+
+
+			{% if question.editing_done %}
+				{% if question.votesSum > 0 %}
+					<div class="alert" style="background-color:#3191F0" role="alert">
+				{% else %}
+					<div class="alert alert-primary" role="alert">
+				{% endif %}
+			{% else %}
 					<div class="alert alert-info" role="alert">
-						 <p>{{ question.answers.count | apnumber }} answer{{ question.answers.count | pluralize }} &  
+			{% endif %}
+						 <p class="ml-4 mt-2">{{ question.answers.count | apnumber }} answer{{ question.answers.count | pluralize }} &  
 						 {{ question.votesSum | apnumber }} vote{{ question.votesSum | pluralize }}</p> 
+
 					</div>
 
 						<div class=" d-flex justify-content-center ">
-							{% comment %}
-									{% if question.alreadyVoted == False  %}  {% endif %}
-							{% endcomment %}
 
-					{% if question.editing_done is True %}
-							{% comment %}
-										<a class="btn btn-primary text-white" 
-											href="{% url 'questions:vote' pk=question.pk %}" role="button">Vote Now</a>
-						<span class="question_href" question_href="{% url 'questions:vote' pk=question.pk %}" style="display:none"></span>
-						<button type="button" 
-						onclick="modalQuestion(question_pk={{question.pk}},question_name='{{ question.question }}' )" 
-						id="modalVoteButton" class="btn btn-primary" data-toggle="modal" 
-							data-target="#modalVoteForm{{forloop.counter}}">
-							 	Vote Now
-	 					</button>
-							{% endcomment %}
-				 {% endif %} 					
+			
 <span>
 <div class="modal fade" id="modalVoteForm{{forloop.counter}}" tabindex="-1" 
 			role="dialog" aria-labelledby="modalVoteForm" aria-hidden="true">
