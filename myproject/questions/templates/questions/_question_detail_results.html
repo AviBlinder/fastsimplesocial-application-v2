@@ -1,4 +1,7 @@
     <div id="show_question_results"  style="display:none">
+        <div class="d-flex justify-content-center">
+            <h4>results</h4>
+        </div>
             <div class="d-flex justify-content-center">
                 <div class="mt-2">
 			        <button style="border: none; background:none" class="ml-4 mb-2" onclick="TogglePieChart()">
@@ -56,6 +59,8 @@
        </div>
     </div>
     <div id="dont_show_question_results" style="display:none">
+
+{% comment %}    
         <div class=" mt-4">
 
             <div class="container">
@@ -67,7 +72,6 @@
                     {{question.min_answerers}} answer{{question.min_answerers |pluralize}}  </p>
                 </div>
             </div>
-
-
-        </div>        
+        </div>     
+{% endcomment %}        
     </div>

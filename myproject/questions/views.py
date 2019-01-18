@@ -169,7 +169,7 @@ class SearchUserQuestions(ListView):
         return context
 ###########################################################################################################
 @method_decorator(login_required, name='dispatch')
-class QuestionDetail( SelectRelatedMixin,DetailView):
+class QuestionDetail(SelectRelatedMixin,DetailView):
     model = Question
     select_related = ["user"]
     pk_url_kwarg = 'pk'
@@ -179,7 +179,7 @@ class QuestionDetail( SelectRelatedMixin,DetailView):
     def get_queryset(self):
         queryset = super(QuestionDetail,self).get_queryset()
         return queryset.filter(
-            user__email =self.kwargs.get("username")
+            user__email = self.kwargs.get("username")
         )
 
     
