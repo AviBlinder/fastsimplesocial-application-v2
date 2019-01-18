@@ -457,7 +457,7 @@ def question_statistics(pk):
         }    
         chart = {
             'chart': {'type': 'pie'},
-            'title': {'text': 'Results'},
+            'title': {'text': ''},
             'series': [question_results],
             'plotOptions': { 'pie':{'showInLegend': 'true','allowPointSelect': 'true', 'name': ' ',
                 'dataLabels':{ 'enabled':'false','format':' {point.percentage:.1f} %'}
@@ -685,64 +685,6 @@ def update_question_params(request,pk):
             
 
     return render(request, 'questions/question_detail.html', {'form': form,'question':question})  
-    
-
-###########################################################################################################
-def set_timezone(request):
-    if request.method == 'POST':
-        request.session['django_timezone'] = request.POST['timezone']
-        print "selected tz = {}".format(request.session['django_timezone'])
-        return redirect('/')
-    else:
-        return render(request, 'questions/timezones_template.html', {'timezones': pytz.common_timezones})
-###########################################################################################################
-def remove_session_data(request):
-    prev_timezone = {}
-    print "inside remove_session_data"
-    if request.method == 'POST':
-        request.session['django_timezone'] = request.POST['timezone']
-        prev_timezone = request.POST['timezone']
-        print "selected tz = {}".format(request.session['django_timezone'])
-
-    for key in request.session.keys():
-        print request.session[key]
-#        del request.session[key]
-    return render(request, 'questions/timezones_template.html', {'timezones': prev_timezone})
-
-
-def jquey_samples(request):
-    
-    return render(request, 'questions/jquery_samples.html', {'context': "content"})
-
-from django.contrib.auth.models import User
-    
-def validate_username(request):
-    username = request.GET.get('username', None)
-    data = {
-        'is_taken': User.objects.filter(username__iexact=username).exists()
-    }
-    if data['is_taken']:
-        data['error_message'] = 'A user with this username already exists.'
-
-    return JsonResponse(data)
-    
-####################################################################################################
-from django.views import View
-from .forms import PhotoForm
-
-class BasicUploadView(View):
-    def post(self, request):
-        print "inside post"
-        form = PhotoForm(self.request.POST, self.request.FILES)
-        if form.is_valid():
-            print "form is valid user: {}".format(request.user)
-            photo = form.save()
-            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
-        else:
-            print "form is not valid"
-            data = {'is_valid': False}
-        return JsonResponse(data)
-
 ######################################################################################################
 ##testing mail sent
 #python manage.py sendtestemail testmail@example.com
@@ -782,58 +724,4 @@ def feedback(request):
 def feedback_thanks(request):
     content = {}
     return render(request, 'questions/feedback_thanks.html', {'context': "content"})
-
 ######################################################################################################
-
-def test_menu(request):
-    
-    content = {}
-    return render(request, 'questions/test_menu.html', {'context': "content"})
-
-
-######################################################################################################
-# @login_required
-# def AddAnswer(request, pk):
-    
-#     question = get_object_or_404(Question, pk=pk)
-#     question_answers = question.answers.all()
-
-#     for answer in question_answers:
-#         a1 = (str(answer.pk),answer.answer)
-#         answer_tuple = tuple(a1)
-#         answer_list.append(answer_tuple)     
-    
-
-#     if request.method == 'POST':
-#         form = forms.VoteForm(answer_list,request.POST)
-
-#         if form.is_valid():
-#             answer = form.cleaned_data['vote']
-
-#             # print "vote3 = {}".format(answer)
-            
-#             try:
-#                 updated_answer = Answer.objects.get(pk=answer)
-#                 updated_answer.votes = Answer.objects.get(pk=answer).increase_vote() 
-#                 updated_answer.save()
-#                 AnswerByUser.objects.create(answer=updated_answer,user=request.user)
-#                 question.answerers = question.increase_answerers()
-#                 question.save()
-                
-#                 AnswerByUser.objects.create(user=request.user,question=question,answer=updated_answer)
-
-#                 QuestionVotedByUser.objects.create(user=request.user,question=question,answer=updated_answer)
-#             except Exception as e:
-#                 print '%s (%s)' % (e.message, type(e)) 
-#                 print "question_voting except !!"
-#                 messages.warning(request,("Warning, answer {} already exists".format(answer)))
-
-#             else:
-#                 messages.success(request,"{answer} added to question {question}.".format(answer=answer.encode('utf-8'),
-#                                                                 question=question.question.encode('utf-8')))
-#             return redirect('questions:single', pk=question.pk, username = question.user)
-#     else:
-#         form = forms.VoteForm(answer_list)
-        
-
-#     return render(request, 'questions/question_voting.html', {'form': form,'question': question})    
