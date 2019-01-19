@@ -21,7 +21,7 @@ import json
 from django.contrib.postgres.search import SearchQuery
 
 from . import forms
-from models import Question,Answer,QuestionVotedByUser
+from models import Question,Answer,AnswerByUser,QuestionVotedByUser
 
 from datetime import datetime
 from django.utils.dateparse import parse_time,parse_datetime
@@ -391,11 +391,12 @@ def question_voting(request, pk):
                     updated_answer = Answer.objects.get(pk=answer)
                     updated_answer.votes = Answer.objects.get(pk=answer).increase_vote() 
                     updated_answer.save()
-#                    AnswerByUser.objects.create(user=request.user,question=question,answer=updated_answer)
+#                    AnswerByUser.objects.create(answer=updated_answer,user=request.user)
+                    AnswerByUser.objects.create(user=request.user,question=question,answer=updated_answer)
                     
                     question.answerers = question.increase_answerers()
                     question.save()
-                    QuestionVotedByUser.objects.create(user=request.user,question=question,answer=updated_answer)
+                    QuestionVotedByUser.objects.create(user=request.user,question=question)
 
                 except Exception as e:
                     print '%s (%s)' % (e.message, type(e)) 
@@ -464,11 +465,14 @@ def question_statistics(pk):
                             }}
         }        
         
+        print "chart - before json = {}".format(chart)
         dump = json.dumps(chart)
-
+        print "chart - after  json = {}".format(chart)
+        
         home = True
         home = json.dumps((home))
         chart_data = {'chart': dump,'home': home}
+        print "chart_data = {}".format(chart_data)
         return (chart_data,resulst_list)
 
 ##############################################################################################################

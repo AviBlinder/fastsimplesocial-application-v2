@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 
-from models import Question,Answer,AnswerByUser
+from models import Question,Answer,QuestionVotedByUser
 
 
 def ajax_get_question_datetime(request):

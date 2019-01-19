@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django import forms
 from django.urls import resolve, reverse
-from .models import Question,Answer,AnswerByUser
+from .models import Question,Answer,QuestionVotedByUser
 import views
 import views_ajax
 from django.contrib.auth import get_user_model

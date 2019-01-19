@@ -5,7 +5,7 @@ from django import forms
 import datetime
 #from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
 
-from models import Question,Answer,AnswerByUser, Feedback
+from models import Question,Answer,QuestionVotedByUser, Feedback
 
 from crispy_forms.helper import FormHelper
 

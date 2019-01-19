@@ -1,10 +1,6 @@
-## Open Issues:
-# handle on_delete='CASCADE' issues
-
 from django.conf import settings
 from django.urls import reverse
 from django.db import models
-#from django.utils.text import slugify
 from slugify import slugify
 from os import path
 
@@ -30,13 +26,11 @@ def content_file_name(instance, filename):
 
 
 class Question(models.Model):
-#    user = models.ForeignKey(User, related_name="questions",on_delete="CASCADE")
-    user = models.ForeignKey(User, related_name="questions")
+    user = models.ForeignKey(User, related_name="questions",null=True, blank=True)
     created_at = models.DateTimeField(auto_now=True)
     question = models.CharField(unique=False,max_length=500)
     question_html = models.TextField(editable=False,max_length=600)
     question_slug = models.SlugField(allow_unicode=True, unique=False,max_length=600)
-#    group = models.ForeignKey(Group, related_name="questions",null=True, blank=True,on_delete="CASCADE")
     group = models.ForeignKey(Group, related_name="questions",null=True, blank=True)
     question_picture = models.FileField(upload_to=content_file_name,null=True,max_length=600) 
     editing_done = models.BooleanField(default=False)
@@ -93,7 +87,6 @@ class Question(models.Model):
         
 class Answer(models.Model):
     created_at = models.DateTimeField(auto_now=True)
-#    question = models.ForeignKey(Question, related_name="answers",null=True, blank=True,on_delete="CASCADE")
     question = models.ForeignKey(Question, related_name="answers")
     answer = models.CharField(unique=False,max_length=150)
     votes = models.IntegerField(default='0')
@@ -123,28 +116,30 @@ class Answer(models.Model):
         
         
         
-class AnswerByUser(models.Model):
-    question = models.ForeignKey(Question, related_name="question_answered",null=True)
-    answer = models.ForeignKey(Answer, related_name="answered",null=True)
-    user = models.ForeignKey(User, related_name="users")
-    answered_at = models.DateTimeField(auto_now=True)
-    group = models.ForeignKey(Group,related_name = "groups",null=True)
+# class AnswerByUser(models.Model):
+#     question = models.ForeignKey(Question, related_name="question_answered",null=True)
+#     answer = models.ForeignKey(Answer, related_name="answered",null=True)
+#     user = models.ForeignKey(User, related_name="users")
+#     answered_at = models.DateTimeField(auto_now=True)
+#     group = models.ForeignKey(Group,related_name = "groups",null=True)
     
-    def __unicode__(self):
-        return "Answer {} by {}".format(self.answer,self.user)
+#     def __unicode__(self):
+#         return "Answer {} by {}".format(self.answer,self.user)
         
-    def __str__(self):
-        return unicode(self).encode('utf-8')
+#     def __str__(self):
+#         return unicode(self).encode('utf-8')
 
 
-    class Meta:
-        unique_together = ["question","user","group"]
+#     class Meta:
+#         unique_together = ["question","user","group"]
 
 class QuestionVotedByUser(models.Model):
     question = models.ForeignKey(Question, related_name="question_answered_by_user",null=True)
     user = models.ForeignKey(User, related_name="user_voted_question")
     answered_at = models.DateTimeField(auto_now=True)
     answer = models.ForeignKey(Answer, related_name="answered_question_by_user",null=True)
+    group = models.ForeignKey(Group,related_name = "groups",null=True)
+    
     
 
     # def __unicode__(self):
@@ -154,10 +149,10 @@ class QuestionVotedByUser(models.Model):
     #     return unicode(self).encode('utf-8')
 
     def __str__(self):
-        return self.question.question + "-" +  self.user.email
+        return self.question.question + "-" +  self.user.email + "group:" + group.slug
 
     class Meta:
-        unique_together = ["question","user"]
+        unique_together = ["question","user","group"]
 
 
 class Feedback(models.Model):
