@@ -483,15 +483,20 @@ def question_statistics_new(request):
                 votes.append(answer.votes)
                 answers.append(answer.answer.encode('UTF-8'))
 
-            # if answer.answer == None or answer.answer == "":
-            #     pass
-            # else:
-            #     print "answer.answer  = {}".format(answer.answer.encode('UTF-8'))
-            #     print "answer.votes= {}".format(answer.votes)
-            #     answer_name = answer_name.append(answer.answer.encode('UTF-8'))
-            #     answer_votes = answer_votes.append(answer.votes)
-            #     print "answer_name = {}".format(answer_name)
-            #     print "answer_votes = {}".format(answer_votes)
+    # type: 'bar',
+    # data: {
+    #     labels:  [1,2,3] ,
+    #     datasets: [{
+    #         label: "My First dataset",
+    #         backgroundColor: 'rgb(255, 99, 132)',
+    #         // borderColor: 'rgb(255, 99, 132)',
+    #         // data: [0, 10, 5, 2, 20, 30, 45],
+    #         data: {{votes}}
+    #     }]
+    # },
+
+
+
 
 
         answers = [1,2,3]    
