@@ -16,7 +16,7 @@
 
 	{% if question.answers.count > 0 %} 
 	
-		{% if question.editing_done is False%}
+			{% if question.user == request.user  and question.editing_done is False %}
 			<div class="media=heading alert alert-warning">
 				{% for answer in question.answers.all %}
 				<div class="answer_loop{{forloop.counter}}">

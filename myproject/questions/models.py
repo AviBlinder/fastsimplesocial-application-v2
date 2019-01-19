@@ -41,11 +41,11 @@ class Question(models.Model):
     question_picture = models.FileField(upload_to=content_file_name,null=True,max_length=600) 
     editing_done = models.BooleanField(default=False)
     due_date = models.DateTimeField(null=True, blank=True)
-    min_answerers = models.PositiveIntegerField(null=True)
+    min_answerers = models.PositiveIntegerField(null=True,default=0)
     answerers = models.PositiveIntegerField(default=0)
     due_day = models.TextField(null=True, blank=True)
     due_time = models.TextField(null=True, blank=True)
-
+    publish_results = models.BooleanField(default=False)
     
     def __unicode__(self):
         return self.question
@@ -60,16 +60,6 @@ class Question(models.Model):
     def votesSum(self):
         return sum([answer.votes for answer in self.answers.all()])
         
-    # def alreadyVoted(self):
-    #     return self.question_answered.filter(user__username__iexact=self.user.username,question=self.question).exists()
-
-    def publish_results(self):
-        if self.due_date is None:
-            self.due_date = timezone.now()
-        if self.min_answerers is None:
-            self.min_answerers = 0
-        publish_results = (self.due_date < timezone.now()) and (self.answerers >= self.min_answerers )
-        return publish_results
 
     def extension(self):
         name, extension = os.path.splitext(self.question_picture.name)
@@ -99,7 +89,7 @@ class Question(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-        unique_together = ["user", "question"]
+        unique_together = ["user", "question","group"]
         
 class Answer(models.Model):
     created_at = models.DateTimeField(auto_now=True)
