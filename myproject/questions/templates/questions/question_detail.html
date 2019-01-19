@@ -60,7 +60,8 @@
         {% if question.editing_done == True  %}
             {% if question_answered_by_user == False %}
         		<a class="btn btn-primary text-white" 
-		            href="{% url 'questions:vote' pk=question.pk %}" role="button">Vote Now</a>
+		            href="{% url 'questions:vote' pk=question.pk %}" role="button">
+        		    Vote Now</a>
 		    {% endif%}
         {% endif %}
         
