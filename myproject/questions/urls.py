@@ -8,7 +8,7 @@ app_name='questions'
 
 urlpatterns = [
 
-    url(r"pie/$", views.question_statistics_new, name="pie"),
+    # url(r"pie/$", views.question_statistics_new, name="pie"),
 
     url(r"new/$", views.create_question, name="create"),
     url(r"dynamic_create/$", views.dynamic_question, name="dynamic_create"),

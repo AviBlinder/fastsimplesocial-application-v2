@@ -284,7 +284,7 @@ class CreateAnswer(CreateView):
 def create_question(request):
 
     if request.method == 'POST':
-        print "create_question - POST - request = {}".format(request.META)
+#        print "create_question - POST - request = {}".format(request.META)
         form = forms.QuestionAnswersForm(request.POST,request.FILES)
         if form.is_valid():
             question = form.cleaned_data['question']
@@ -315,7 +315,7 @@ def create_question(request):
             return redirect('questions:all')
                                                                
     else:
-        print "create_question - GET - request = {}".format(request.META)
+        # print "create_question - GET - request = {}".format(request.META)
         
         form = forms.QuestionAnswersForm()
 
@@ -464,11 +464,15 @@ def question_statistics(pk):
                 'dataLabels':{ 'enabled':'false','format':' {point.percentage:.1f} %'}
                             }}
         }        
+        
+        print "chart - before json = {}".format(chart)
         dump = json.dumps(chart)
+        print "chart - after  json = {}".format(chart)
         
         home = True
         home = json.dumps((home))
         chart_data = {'chart': dump,'home': home}
+        print "chart_data = {}".format(chart_data)
         return (chart_data,resulst_list)
 
 ##############################################################################################################
@@ -477,33 +481,24 @@ def question_statistics_new(request):
         answers = []
         votes = []    
         for answer in Question.objects.get(pk=39).answers.all().order_by('-votes'):
-                print "answer.answer  = {}".format(answer.answer.encode('UTF-8'))
-                print "answer.votes= {}".format(answer.votes)
-
                 votes.append(answer.votes)
                 answers.append(answer.answer.encode('UTF-8'))
 
-    # type: 'bar',
-    # data: {
-    #     labels:  [1,2,3] ,
-    #     datasets: [{
-    #         label: "My First dataset",
-    #         backgroundColor: 'rgb(255, 99, 132)',
-    #         // borderColor: 'rgb(255, 99, 132)',
-    #         // data: [0, 10, 5, 2, 20, 30, 45],
-    #         data: {{votes}}
-    #     }]
-    # },
+        answers = [10,20,30]    
 
-
-
-
-
-        answers = [1,2,3]    
+        chart = {  'type': 'bar','data' : 
+                { 'labels' : [1,2,3],
+                'datasets' : [{'label': 'results', 
+                                'backgroundColor': 'rgb(255, 99, 132)',
+                                'data': [10,12,13]
+                }]}
+                }
 #        votes = [0, 10, 5]
-        print "votes = {}".format(votes)
-        return render(request, 'questions/pie.html', {'labels': answers,'votes':votes})
+        # json_chart = json.dumps(chart)
+        json_chart = chart
 
+        return render(request, 'questions/pie.html', {'chart': json_chart,'answers': answers,'votes':votes})
+#        return JsonResponse(request,'questions/pie.html',{'chart': json_chart,'answers': answers,'votes':votes})
 
 ##############################################################################################################
 def update_answer_done(request,pk):
