@@ -25,12 +25,14 @@
             Sign up with Google
           </a>
 
+    {% comment %}
           <a class="btn btn-success mt-2" style=" background-color: Transparent; background-repeat:no-repeat; color:green;"
           href="{% provider_login_url "facebook"  %}">
             <i class="fa fa-facebook"></i>
             Sign up with Facebook
           </a>
-
+    {% endcomment %}
+    
     {% comment  %}
           href="{% provider_login_url "facebook" method="js_sdk" %}">          
 <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>          
