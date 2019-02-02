@@ -36,7 +36,8 @@ PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR,'static/js','serviceworker.js')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-
+IPSTACK_API_ACCESS_KEY = config('C_ipstack_API_ACCESS_KEY')
+GOOGLE_MAPS_API_KEY = config('Google_Maps_API_Key')
 
 #ALLOWED_HOSTS = [AWS_EC2_HOST,AWS_EC2_IP,'www.fastsimplesocial.com']
 ALLOWED_HOSTS = ['www.fastsimplesocial.com']
@@ -290,3 +291,4 @@ STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 ####################################################################################
+

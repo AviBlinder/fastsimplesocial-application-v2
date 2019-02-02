@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>GEO API</h2>
+  <p>Your ip address is <strong>{{ ip }}</strong>, 
+  and you are probably in <strong>{{region_name}} , {{ country }}</strong> right now.</p>
+
+<img src="{{flag}}" style="width: 100px;" alt="Country Flag">
+
+<p> country code = {{country_code }}</p>
+
+
+
+  <iframe width="600"
+          height="450"
+          frameborder="0"
+          style="border:0"
+          src="https://www.google.com/maps/embed/v1/view?center={{ latitude }},{{ longitude }}&zoom=8&key={{ api_key }}"
+          allowfullscreen></iframe>
+
+{% endblock %}

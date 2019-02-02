@@ -58,6 +58,7 @@
 
 
         {% if question.editing_done == True  %}
+        
             {% if question_answered_by_user == False %}
         		<a class="btn btn-primary text-white" 
 		            href="{% url 'questions:vote' pk=question.pk %}" role="button">
@@ -119,13 +120,17 @@
         </div>        
     {% endif %}
 
+{% comment %}
         {% if question.editing_done is True  and question.user == request.user %}
-
+        {% endif %}
+{% endcomment %}
+        {% if question.editing_done is True  and question.user == request.user %}
             <!-- Go to www.addthis.com/dashboard to customize your tools -->
             <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bdde3de8c2b6428"></script>
-        
+
         {% endif %}
-        
+
+
 {% endblock %}
 
 {% block javascript  %}
