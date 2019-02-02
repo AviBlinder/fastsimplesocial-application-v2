@@ -754,12 +754,28 @@ def feedback_thanks(request):
     return render(request, 'questions/feedback_thanks.html', {'context': "content"})
 ######################################################################################################
 def myip(request):
+##
+#Curated list of public APIs: https://github.com/toddmotto/public-apis
+##
+    
     access_key = settings.IPSTACK_API_ACCESS_KEY
-    ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
-#    ip_address = '141.226.242.71'
-#http://api.ipstack.com/141.226.242.71?access_key=092e8519cb3ed187947351b1c2a096e4
-    response = requests.get('http://api.ipstack.com/{}?access_key={}'.format(ip_address,access_key))
-    geodata = response.json()
+
+    is_cached = ('geodata' in request.session)
+
+    if not is_cached:
+        if settings.DEBUG:
+            ip_address = '141.226.242.71'
+        else:
+            ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
+
+        response = requests.get('http://api.ipstack.com/{}?access_key={}'.format(ip_address,access_key))
+        # geodata = response.json()
+        request.session['geodata'] = response.json()
+        
+
+    geodata = request.session['geodata']
+
+
     return render(request, 'questions/myip.html', {
         'ip': geodata['ip'],
         'country': geodata['country_name'],
@@ -769,5 +785,7 @@ def myip(request):
         'flag': geodata['location']['country_flag'],
         'continent_name': geodata['continent_name'],
         'country_code': geodata['country_code'],
-        'api_key': settings.GOOGLE_MAPS_API_KEY  
+        'api_key': settings.GOOGLE_MAPS_API_KEY  ,
+        'is_cached': is_cached
+
     })    
