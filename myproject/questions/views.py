@@ -755,8 +755,8 @@ def feedback_thanks(request):
 ######################################################################################################
 def myip(request):
     access_key = settings.IPSTACK_API_ACCESS_KEY
-#    ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
-    ip_address = '141.226.242.71'
+    ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
+#    ip_address = '141.226.242.71'
 #http://api.ipstack.com/141.226.242.71?access_key=092e8519cb3ed187947351b1c2a096e4
     response = requests.get('http://api.ipstack.com/{}?access_key={}'.format(ip_address,access_key))
     geodata = response.json()
