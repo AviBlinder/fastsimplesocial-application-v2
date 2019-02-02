@@ -758,6 +758,8 @@ def myip(request):
 #Curated list of public APIs: https://github.com/toddmotto/public-apis
 ##
     
+    advice = 'https://api.adviceslip.com/advice'
+    
     access_key = settings.IPSTACK_API_ACCESS_KEY
 
     is_cached = ('geodata' in request.session)
@@ -775,6 +777,9 @@ def myip(request):
 
     geodata = request.session['geodata']
 
+    advice = requests.get('https://api.adviceslip.com/advice')
+#    print "advice = {}".format(advice.json())
+    selected_advice = advice.json()   
 
     return render(request, 'questions/myip.html', {
         'ip': geodata['ip'],
@@ -786,6 +791,8 @@ def myip(request):
         'continent_name': geodata['continent_name'],
         'country_code': geodata['country_code'],
         'api_key': settings.GOOGLE_MAPS_API_KEY  ,
-        'is_cached': is_cached
+        'is_cached': is_cached,
+
+        'selected_advice' : selected_advice['slip']['advice']
 
     })    
