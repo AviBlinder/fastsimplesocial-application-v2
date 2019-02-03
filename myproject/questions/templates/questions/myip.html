@@ -22,4 +22,21 @@
 
 <p> Advice: {{ selected_advice }}</p>
 <p><small>  This information {{ is_cached|yesno:"was,wasn't" }} cached.</small></p>
+
+  {% if total_users is not None %}
+  <div class="mb-4">
+    <p> Total Registered User {{ total_users }} </p>
+    <p>Total Questions: {{total_questions }} </p>    
+    
+
+    {% for user_name  in users %}
+      <li> {{ user_name }} </li>
+    {% endfor %}
+    <br>
+    </div>
+    <div class="mb-4"><p> </p></div>
+
+      
+  {% endif %}
+
 {% endblock %}

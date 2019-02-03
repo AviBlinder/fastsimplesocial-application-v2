@@ -780,6 +780,15 @@ def myip(request):
     advice = requests.get('https://api.adviceslip.com/advice')
 #    print "advice = {}".format(advice.json())
     selected_advice = advice.json()   
+    
+    if request.user.is_superuser:
+        total_users = User.objects.all().count()
+        users = User.objects.all()
+        total_questions = Question.objects.all().count()
+    else:
+        total_users = None
+        users = None
+        total_questions = None
 
     return render(request, 'questions/myip.html', {
         'ip': geodata['ip'],
@@ -792,7 +801,9 @@ def myip(request):
         'country_code': geodata['country_code'],
         'api_key': settings.GOOGLE_MAPS_API_KEY  ,
         'is_cached': is_cached,
-
+        'total_users': total_users,
+        'users' : users,
+        'total_questions' : total_questions,
         'selected_advice' : selected_advice['slip']['advice']
 
     })    
