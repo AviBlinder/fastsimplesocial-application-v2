@@ -478,11 +478,15 @@ def question_statistics_new(request):
 
         answers = []
         votes = []    
+        question = Question.objects.get(pk=39)
         for answer in Question.objects.get(pk=39).answers.all().order_by('-votes'):
-                votes.append(answer.votes)
-                answers.append(answer.answer.encode('UTF-8'))
+                print "answer: {}".format(answer)
 
-        answers = [10,20,30]    
+                votes.append(answer.votes+2*3)
+                answers.append(answer)
+    
+        print "answers: {}<>votes: {}".format(answers,votes)
+        # answers = [10,20,30]    
 
         chart = {  'type': 'bar','data' : 
                 { 'labels' : [1,2,3],
@@ -491,11 +495,11 @@ def question_statistics_new(request):
                                 'data': [10,12,13]
                 }]}
                 }
-#        votes = [0, 10, 5]
         # json_chart = json.dumps(chart)
         json_chart = chart
 
-        return render(request, 'questions/pie.html', {'chart': json_chart,'answers': answers,'votes':votes})
+        return render(request, 'questions/pie.html', {'chart': json_chart,'question':question,
+            'answers': answers,'votes':votes})
 #        return JsonResponse(request,'questions/pie.html',{'chart': json_chart,'answers': answers,'votes':votes})
 
 ##############################################################################################################
