@@ -187,7 +187,10 @@ class QuestionDetail(SelectRelatedMixin,DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(QuestionDetail,self).get_context_data(**kwargs)
-        chart_data , resulst_list = question_statistics(self.kwargs.get('pk'))
+
+        # chart_data , resulst_list = question_statistics(self.kwargs.get('pk'))
+        chart_data , resulst_list = question_statistics_barchart(self.kwargs.get('pk'))
+
 
         # username = self.kwargs.get('username')
         # print "username = {}".format(username)
@@ -474,33 +477,76 @@ def question_statistics(pk):
         return (chart_data,resulst_list)
 
 ##############################################################################################################
-def question_statistics_new(request):
+def question_statistics_barchart(pk):
 
         answers = []
-        votes = []    
-        question = Question.objects.get(pk=39)
-        for answer in Question.objects.get(pk=39).answers.all().order_by('-votes'):
+        votes = []
+        resulst_dict = {}
+        resulst_list = []
+        question = Question.objects.get(pk=pk)
+        for answer in Question.objects.get(pk=pk).answers.all().order_by('-votes'):
                 print "answer: {}".format(answer)
 
-                votes.append(answer.votes+2*3)
-                answers.append(answer)
-    
-        print "answers: {}<>votes: {}".format(answers,votes)
-        # answers = [10,20,30]    
+                votes.append(answer.votes)
+                answers.append(answer.answer)
+                resulst_dict = {answer.answer :   answer.votes }
+                resulst_list.append(resulst_dict)
+                
 
-        chart = {  'type': 'bar','data' : 
-                { 'labels' : [1,2,3],
-                'datasets' : [{'label': 'results', 
-                                'backgroundColor': 'rgb(255, 99, 132)',
-                                'data': [10,12,13]
-                }]}
-                }
-        # json_chart = json.dumps(chart)
-        json_chart = chart
+###
 
-        return render(request, 'questions/pie.html', {'chart': json_chart,'question':question,
-            'answers': answers,'votes':votes})
-#        return JsonResponse(request,'questions/pie.html',{'chart': json_chart,'answers': answers,'votes':votes})
+        categories = answers
+        question_results = {   
+            'name': question.question,
+            'data': votes
+        }
+
+        chart_data = {
+            'chart': {'type': 'column'},
+            # 'title': {'text': question.question },
+            'title': {'text': ''},
+            # 'subtitle': {'text': 'Source: WorldClimate'},
+        'xAxis': {
+            'categories': categories,
+            'crosshair': 'true'
+        },
+        'yAxis': {
+            'min': 0,
+            'title': {
+                'text': ''
+            }
+        },
+        'tooltip': {
+            'headerFormat': '<span style="font-size:10px">{point.key}</span><table>',
+            'pointFormat': '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y} votes</b></td></tr>',
+            'footerFormat': '</table>',
+            'shared': 'true',
+            'useHTML': 'true'
+        },
+        'plotOptions': {
+            'column': {
+                'pointPadding': 0.2,
+                'borderWidth': 0
+            }
+        },
+        'series': 
+            [{
+            'name': '',
+            'data': votes
+        }] 
+    }
+
+        json_chart = json.dumps(chart_data)
+
+        home = True
+        home = json.dumps((home))
+        chart_data = {'chart': json_chart,'home': home}
+        return (chart_data,resulst_list)
+
+
+        # return render(request, 'questions/chart.html', {"chart_data": chart_data,'question':question.question,
+        #     'answers': answers,'votes':votes})
 
 ##############################################################################################################
 def update_answer_done(request,pk):
