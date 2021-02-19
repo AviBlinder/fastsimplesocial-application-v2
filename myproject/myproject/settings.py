@@ -40,7 +40,7 @@ IPSTACK_API_ACCESS_KEY = config('C_ipstack_API_ACCESS_KEY')
 GOOGLE_MAPS_API_KEY = config('Google_Maps_API_Key')
 
 #ALLOWED_HOSTS = [AWS_EC2_HOST,AWS_EC2_IP,'www.fastsimplesocial.com']
-ALLOWED_HOSTS = ['www.fastsimplesocial.com','fastsimplesocial.com']
+ALLOWED_HOSTS = ['www.fastsimplesocial.com','fastsimplesocial.com','localhost']
 ALLOWED_HOSTS += [AWS_EC2_HOST,AWS_EC2_IP,AWS_DEV_EC2,AWS_DEV_EC2_IP,AWS_DEV_DOMAIN,]
 
 # Application definition

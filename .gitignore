@@ -10,5 +10,6 @@ __pycache__/
 *.py[cod]
 .env
 venv/
-
+myproject/myproject/.env
 .travis.yml
+.general.txt
