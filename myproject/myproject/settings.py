@@ -125,7 +125,7 @@ INSTALLED_APPS += (
     # Login via Google
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.facebook',
+   'allauth.socialaccount.providers.facebook',
     
 
 )
@@ -135,7 +135,7 @@ SITE_ID = 3
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_QUERY_EMAIL = True
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
